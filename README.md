@@ -1,7 +1,9 @@
 ## UI效果仿照前端element-UI的[Tree控件](https://element.eleme.cn/#/zh-CN/component/tree)
 # **视图层**
 ### 正常树形显示
+
 这里显示十级  每级100条数据 总共1000条数据的效果图
+
 ![treeNone.gif](https://upload-images.jianshu.io/upload_images/9163368-4c0890c33838370a.gif?imageMogr2/auto-orient/strip)
 
 ```
@@ -11,7 +13,9 @@ self.treeView = [[WMZTreeView alloc]initWithParam:param];
 ```
 
 ### 可选中树形+选中高亮显示
+
 ![treeSelect.gif](https://upload-images.jianshu.io/upload_images/9163368-22a48815e35c5df9.gif?imageMogr2/auto-orient/strip)
+
 ```
 TreeViewParam()
  //可勾选
@@ -21,7 +25,9 @@ TreeViewParam()
 ```
 
 ### 自定义节点内容+增删节点
+
 ![treeCell.gif](https://upload-images.jianshu.io/upload_images/9163368-c2b322014e6d2121.gif?imageMogr2/auto-orient/strip)
+
 
 ```
 TreeViewParam()
@@ -72,7 +78,9 @@ TreeViewParam()
 ```
 
 ### 手风琴效果+指定层级可勾选 (这里选取3级结构,指定最后一级才可勾选)
+
 ![treeCanSelect.gif](https://upload-images.jianshu.io/upload_images/9163368-607e5c23e4c77b1e.gif?imageMogr2/auto-orient/strip)
+
 
 ```
 //手风琴效果 同级只展开一级
@@ -82,6 +90,7 @@ TreeViewParam().wAccordionSet(YES)
 TreeParam().canSelectSet(NO)
 ```
 ### 勾选不关联父节点和子节点+默认选中+默认全部展开
+
 ![treeCheck.gif](https://upload-images.jianshu.io/upload_images/9163368-c651d0107797fc8c.gif?imageMogr2/auto-orient/strip)
 
 ```
@@ -248,4 +257,4 @@ LEETheme 使用 MIT 许可证，详情见 [LICENSE](LICENSE) 文件。
 个人主页
 ==============
 使用过程中如果有什么bug欢迎给我提issue 我看到就会解决
-[简书地址]()
+[简书地址](https://www.jianshu.com/p/5bf2887c3919)
