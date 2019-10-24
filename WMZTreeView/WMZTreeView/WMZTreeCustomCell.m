@@ -114,10 +114,16 @@
 }
 
 - (UIImage*)bundleImage:(NSString*)name{
+    
+    
     NSBundle *bundle =  [NSBundle bundleWithPath:[[NSBundle bundleForClass:[WMZTreeCustomCell class]] pathForResource:@"WMZTreeView" ofType:@"bundle"]];
     NSString *path = [bundle pathForResource:name ofType:@"png"];
-    UIImage *image = [UIImage imageWithContentsOfFile:path];
-    return image;
+    
+    if (!path) {
+        return [UIImage imageNamed:name];
+    }else{
+        return [UIImage imageWithContentsOfFile:path];
+    }
 }
 
 - (UIButton *)icon{
