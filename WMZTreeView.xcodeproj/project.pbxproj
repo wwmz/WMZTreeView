@@ -1,0 +1,648 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F315C067236178C0001E1584 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C066236178C0001E1584 /* AppDelegate.m */; };
+		F315C06A236178C0001E1584 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C069236178C0001E1584 /* SceneDelegate.m */; };
+		F315C06D236178C0001E1584 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C06C236178C0001E1584 /* ViewController.m */; };
+		F315C070236178C0001E1584 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F315C06E236178C0001E1584 /* Main.storyboard */; };
+		F315C072236178C1001E1584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F315C071236178C1001E1584 /* Assets.xcassets */; };
+		F315C075236178C1001E1584 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F315C073236178C1001E1584 /* LaunchScreen.storyboard */; };
+		F315C078236178C1001E1584 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C077236178C1001E1584 /* main.m */; };
+		F315C082236178C2001E1584 /* WMZTreeViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C081236178C2001E1584 /* WMZTreeViewTests.m */; };
+		F315C08D236178C2001E1584 /* WMZTreeViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C08C236178C2001E1584 /* WMZTreeViewUITests.m */; };
+		F315C0AB2361791B001E1584 /* WMZTreeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F315C09D2361791B001E1584 /* WMZTreeView.bundle */; };
+		F315C0AC2361791B001E1584 /* WMZTreeCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C09E2361791B001E1584 /* WMZTreeCustomCell.m */; };
+		F315C0AD2361791B001E1584 /* WMZTreeViewParam.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A12361791B001E1584 /* WMZTreeViewParam.m */; };
+		F315C0AE2361791B001E1584 /* WMZTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A22361791B001E1584 /* WMZTreeView.m */; };
+		F315C0AF2361791B001E1584 /* WMZTreeParam.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A42361791B001E1584 /* WMZTreeParam.m */; };
+		F315C0B02361791B001E1584 /* WMZTreeBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A52361791B001E1584 /* WMZTreeBaseView.m */; };
+		F315C0B12361791B001E1584 /* DemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A92361791B001E1584 /* DemoVC.m */; };
+		F315C0B22361791B001E1584 /* WMZMyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0AA2361791B001E1584 /* WMZMyCell.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F315C07E236178C2001E1584 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F315C05A236178C0001E1584 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F315C061236178C0001E1584;
+			remoteInfo = WMZTreeView;
+		};
+		F315C089236178C2001E1584 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F315C05A236178C0001E1584 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F315C061236178C0001E1584;
+			remoteInfo = WMZTreeView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F315C062236178C0001E1584 /* WMZTreeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WMZTreeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F315C065236178C0001E1584 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F315C066236178C0001E1584 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F315C068236178C0001E1584 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		F315C069236178C0001E1584 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		F315C06B236178C0001E1584 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F315C06C236178C0001E1584 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F315C06F236178C0001E1584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F315C071236178C1001E1584 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F315C074236178C1001E1584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F315C076236178C1001E1584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F315C077236178C1001E1584 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F315C07D236178C2001E1584 /* WMZTreeViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WMZTreeViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F315C081236178C2001E1584 /* WMZTreeViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMZTreeViewTests.m; sourceTree = "<group>"; };
+		F315C083236178C2001E1584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F315C088236178C2001E1584 /* WMZTreeViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WMZTreeViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F315C08C236178C2001E1584 /* WMZTreeViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMZTreeViewUITests.m; sourceTree = "<group>"; };
+		F315C08E236178C2001E1584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F315C09B2361791B001E1584 /* WMZTreeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeConfig.h; sourceTree = "<group>"; };
+		F315C09C2361791B001E1584 /* WMZTreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeView.h; sourceTree = "<group>"; };
+		F315C09D2361791B001E1584 /* WMZTreeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMZTreeView.bundle; sourceTree = "<group>"; };
+		F315C09E2361791B001E1584 /* WMZTreeCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZTreeCustomCell.m; sourceTree = "<group>"; };
+		F315C09F2361791B001E1584 /* WMZTreeParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeParam.h; sourceTree = "<group>"; };
+		F315C0A02361791B001E1584 /* WMZTreeBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeBaseView.h; sourceTree = "<group>"; };
+		F315C0A12361791B001E1584 /* WMZTreeViewParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZTreeViewParam.m; sourceTree = "<group>"; };
+		F315C0A22361791B001E1584 /* WMZTreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZTreeView.m; sourceTree = "<group>"; };
+		F315C0A32361791B001E1584 /* WMZTreeCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeCustomCell.h; sourceTree = "<group>"; };
+		F315C0A42361791B001E1584 /* WMZTreeParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZTreeParam.m; sourceTree = "<group>"; };
+		F315C0A52361791B001E1584 /* WMZTreeBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZTreeBaseView.m; sourceTree = "<group>"; };
+		F315C0A62361791B001E1584 /* WMZTreeViewParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZTreeViewParam.h; sourceTree = "<group>"; };
+		F315C0A72361791B001E1584 /* WMZMyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMZMyCell.h; sourceTree = "<group>"; };
+		F315C0A82361791B001E1584 /* DemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoVC.h; sourceTree = "<group>"; };
+		F315C0A92361791B001E1584 /* DemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoVC.m; sourceTree = "<group>"; };
+		F315C0AA2361791B001E1584 /* WMZMyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZMyCell.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F315C05F236178C0001E1584 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C07A236178C2001E1584 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C085236178C2001E1584 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F315C059236178C0001E1584 = {
+			isa = PBXGroup;
+			children = (
+				F315C064236178C0001E1584 /* WMZTreeView */,
+				F315C080236178C2001E1584 /* WMZTreeViewTests */,
+				F315C08B236178C2001E1584 /* WMZTreeViewUITests */,
+				F315C063236178C0001E1584 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F315C063236178C0001E1584 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F315C062236178C0001E1584 /* WMZTreeView.app */,
+				F315C07D236178C2001E1584 /* WMZTreeViewTests.xctest */,
+				F315C088236178C2001E1584 /* WMZTreeViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F315C064236178C0001E1584 /* WMZTreeView */ = {
+			isa = PBXGroup;
+			children = (
+				F315C09A2361791B001E1584 /* WMZTreeView */,
+				F315C065236178C0001E1584 /* AppDelegate.h */,
+				F315C066236178C0001E1584 /* AppDelegate.m */,
+				F315C068236178C0001E1584 /* SceneDelegate.h */,
+				F315C069236178C0001E1584 /* SceneDelegate.m */,
+				F315C0A82361791B001E1584 /* DemoVC.h */,
+				F315C0A92361791B001E1584 /* DemoVC.m */,
+				F315C0A72361791B001E1584 /* WMZMyCell.h */,
+				F315C0AA2361791B001E1584 /* WMZMyCell.m */,
+				F315C06B236178C0001E1584 /* ViewController.h */,
+				F315C06C236178C0001E1584 /* ViewController.m */,
+				F315C06E236178C0001E1584 /* Main.storyboard */,
+				F315C071236178C1001E1584 /* Assets.xcassets */,
+				F315C073236178C1001E1584 /* LaunchScreen.storyboard */,
+				F315C076236178C1001E1584 /* Info.plist */,
+				F315C077236178C1001E1584 /* main.m */,
+			);
+			path = WMZTreeView;
+			sourceTree = "<group>";
+		};
+		F315C080236178C2001E1584 /* WMZTreeViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				F315C081236178C2001E1584 /* WMZTreeViewTests.m */,
+				F315C083236178C2001E1584 /* Info.plist */,
+			);
+			path = WMZTreeViewTests;
+			sourceTree = "<group>";
+		};
+		F315C08B236178C2001E1584 /* WMZTreeViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F315C08C236178C2001E1584 /* WMZTreeViewUITests.m */,
+				F315C08E236178C2001E1584 /* Info.plist */,
+			);
+			path = WMZTreeViewUITests;
+			sourceTree = "<group>";
+		};
+		F315C09A2361791B001E1584 /* WMZTreeView */ = {
+			isa = PBXGroup;
+			children = (
+				F315C09B2361791B001E1584 /* WMZTreeConfig.h */,
+				F315C09C2361791B001E1584 /* WMZTreeView.h */,
+				F315C09E2361791B001E1584 /* WMZTreeCustomCell.m */,
+				F315C09F2361791B001E1584 /* WMZTreeParam.h */,
+				F315C0A02361791B001E1584 /* WMZTreeBaseView.h */,
+				F315C0A12361791B001E1584 /* WMZTreeViewParam.m */,
+				F315C0A22361791B001E1584 /* WMZTreeView.m */,
+				F315C0A32361791B001E1584 /* WMZTreeCustomCell.h */,
+				F315C0A42361791B001E1584 /* WMZTreeParam.m */,
+				F315C0A52361791B001E1584 /* WMZTreeBaseView.m */,
+				F315C0A62361791B001E1584 /* WMZTreeViewParam.h */,
+				F315C09D2361791B001E1584 /* WMZTreeView.bundle */,
+			);
+			path = WMZTreeView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F315C061236178C0001E1584 /* WMZTreeView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F315C091236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeView" */;
+			buildPhases = (
+				F315C05E236178C0001E1584 /* Sources */,
+				F315C05F236178C0001E1584 /* Frameworks */,
+				F315C060236178C0001E1584 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WMZTreeView;
+			productName = WMZTreeView;
+			productReference = F315C062236178C0001E1584 /* WMZTreeView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F315C07C236178C2001E1584 /* WMZTreeViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F315C094236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeViewTests" */;
+			buildPhases = (
+				F315C079236178C2001E1584 /* Sources */,
+				F315C07A236178C2001E1584 /* Frameworks */,
+				F315C07B236178C2001E1584 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F315C07F236178C2001E1584 /* PBXTargetDependency */,
+			);
+			name = WMZTreeViewTests;
+			productName = WMZTreeViewTests;
+			productReference = F315C07D236178C2001E1584 /* WMZTreeViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F315C087236178C2001E1584 /* WMZTreeViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F315C097236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeViewUITests" */;
+			buildPhases = (
+				F315C084236178C2001E1584 /* Sources */,
+				F315C085236178C2001E1584 /* Frameworks */,
+				F315C086236178C2001E1584 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F315C08A236178C2001E1584 /* PBXTargetDependency */,
+			);
+			name = WMZTreeViewUITests;
+			productName = WMZTreeViewUITests;
+			productReference = F315C088236178C2001E1584 /* WMZTreeViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F315C05A236178C0001E1584 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = wmz;
+				TargetAttributes = {
+					F315C061236178C0001E1584 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					F315C07C236178C2001E1584 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = F315C061236178C0001E1584;
+					};
+					F315C087236178C2001E1584 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = F315C061236178C0001E1584;
+					};
+				};
+			};
+			buildConfigurationList = F315C05D236178C0001E1584 /* Build configuration list for PBXProject "WMZTreeView" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F315C059236178C0001E1584;
+			productRefGroup = F315C063236178C0001E1584 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F315C061236178C0001E1584 /* WMZTreeView */,
+				F315C07C236178C2001E1584 /* WMZTreeViewTests */,
+				F315C087236178C2001E1584 /* WMZTreeViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F315C060236178C0001E1584 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F315C075236178C1001E1584 /* LaunchScreen.storyboard in Resources */,
+				F315C072236178C1001E1584 /* Assets.xcassets in Resources */,
+				F315C070236178C0001E1584 /* Main.storyboard in Resources */,
+				F315C0AB2361791B001E1584 /* WMZTreeView.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C07B236178C2001E1584 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C086236178C2001E1584 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F315C05E236178C0001E1584 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F315C0AF2361791B001E1584 /* WMZTreeParam.m in Sources */,
+				F315C0AC2361791B001E1584 /* WMZTreeCustomCell.m in Sources */,
+				F315C0B02361791B001E1584 /* WMZTreeBaseView.m in Sources */,
+				F315C0B12361791B001E1584 /* DemoVC.m in Sources */,
+				F315C06D236178C0001E1584 /* ViewController.m in Sources */,
+				F315C067236178C0001E1584 /* AppDelegate.m in Sources */,
+				F315C0AD2361791B001E1584 /* WMZTreeViewParam.m in Sources */,
+				F315C078236178C1001E1584 /* main.m in Sources */,
+				F315C0AE2361791B001E1584 /* WMZTreeView.m in Sources */,
+				F315C0B22361791B001E1584 /* WMZMyCell.m in Sources */,
+				F315C06A236178C0001E1584 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C079236178C2001E1584 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F315C082236178C2001E1584 /* WMZTreeViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F315C084236178C2001E1584 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F315C08D236178C2001E1584 /* WMZTreeViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F315C07F236178C2001E1584 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F315C061236178C0001E1584 /* WMZTreeView */;
+			targetProxy = F315C07E236178C2001E1584 /* PBXContainerItemProxy */;
+		};
+		F315C08A236178C2001E1584 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F315C061236178C0001E1584 /* WMZTreeView */;
+			targetProxy = F315C089236178C2001E1584 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F315C06E236178C0001E1584 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F315C06F236178C0001E1584 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F315C073236178C1001E1584 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F315C074236178C1001E1584 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F315C08F236178C2001E1584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F315C090236178C2001E1584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F315C092236178C2001E1584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F315C093236178C2001E1584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F315C095236178C2001E1584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeViewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WMZTreeView.app/WMZTreeView";
+			};
+			name = Debug;
+		};
+		F315C096236178C2001E1584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeViewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WMZTreeView.app/WMZTreeView";
+			};
+			name = Release;
+		};
+		F315C098236178C2001E1584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WMZTreeView;
+			};
+			name = Debug;
+		};
+		F315C099236178C2001E1584 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR6T4LQD9T;
+				INFOPLIST_FILE = WMZTreeViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WMZTreeViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = WMZTreeView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F315C05D236178C0001E1584 /* Build configuration list for PBXProject "WMZTreeView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F315C08F236178C2001E1584 /* Debug */,
+				F315C090236178C2001E1584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F315C091236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F315C092236178C2001E1584 /* Debug */,
+				F315C093236178C2001E1584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F315C094236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F315C095236178C2001E1584 /* Debug */,
+				F315C096236178C2001E1584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F315C097236178C2001E1584 /* Build configuration list for PBXNativeTarget "WMZTreeViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F315C098236178C2001E1584 /* Debug */,
+				F315C099236178C2001E1584 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F315C05A236178C0001E1584 /* Project object */;
+}
