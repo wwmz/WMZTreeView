@@ -74,6 +74,27 @@ NS_ASSUME_NONNULL_BEGIN
 //传进来的是JSON数组 转为树形模型
 - (void)changeJSONtToTreeModel:(NSArray*)data type:(TreeDataType)type;
 
+/*
+*全选
+*/
+- (void)selectAll;
+
+/*
+*全部取消选中
+*/
+- (void)notSelectAll;
+
+
+/*
+*获取父节点
+*/
+- (WMZTreeParam*)getParentId:(NSString*)currrentID;
+
+
+/*
+*更新数据
+*/
+- (void)update;
 
 @end
 

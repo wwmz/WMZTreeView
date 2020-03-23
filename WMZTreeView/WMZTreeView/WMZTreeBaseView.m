@@ -156,7 +156,7 @@
            tmp.halfSelect = NO;
            tmp.isSelected = YES;
            for (WMZTreeParam *son in tmp.children) {
-                if (!son.isSelected) {
+                if (!son.isSelected&&son.canSelect) {
                     tmp.halfSelect = YES;
                     tmp.isSelected = NO;
                     break;
@@ -166,7 +166,7 @@
             tmp.halfSelect = NO;
             tmp.isSelected = NO;
             for (WMZTreeParam *son in tmp.children) {
-                if (son!=tmp&&son.isSelected) {
+                if (son!=tmp&&son.isSelected&&son.canSelect) {
                     tmp.halfSelect = YES;
                     break;
                 }
@@ -202,10 +202,8 @@
 - (UITableView *)table{
     if (!_table) {
         _table = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStyleGrouped];
-        _table.estimatedRowHeight = 0.01;
-        _table.estimatedSectionFooterHeight = 0.01;
-        _table.estimatedSectionHeaderHeight = 0.01;
         if (@available(iOS 11.0, *)) {
+              _table.estimatedRowHeight = 0.01;
               _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
     }

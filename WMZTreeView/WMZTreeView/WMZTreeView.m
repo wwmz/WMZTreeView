@@ -32,6 +32,30 @@
     [self.table reloadData];
 }
 
+/*
+*全选
+*/
+- (void)selectAll{
+    for (WMZTreeParam *param in self.data) {
+        if (param.canSelect) {
+            param.isSelected = YES;
+        }
+    }
+    [self.table reloadData];
+}
+
+/*
+*全部取消选中
+*/
+- (void)notSelectAll{
+    for (WMZTreeParam *param in self.data) {
+        if (param.canSelect) {
+            param.isSelected = NO;
+        }
+    }
+    [self.table reloadData];
+}
+
 - (void)setUp{
     
     if (!self.param.wData||![self.param.wData isKindOfClass:[NSArray class]]) return;
@@ -49,7 +73,6 @@
     }else{
         [self dealTreeData:self.param.wData];
         [self.data addObjectsFromArray:[self getSonData:self.tree type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent ]];
-
     }
     
     if (!self.data.count) {
@@ -89,6 +112,7 @@
             [self.dic setObject:model forKey:model.currentId];
         }
     }
+    NSMutableArray *arr = [NSMutableArray new];
     [self.dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, WMZTreeParam * _Nonnull obj, BOOL * _Nonnull stop) {
       @autoreleasepool {
         if (!obj.parentId) {
@@ -98,8 +122,23 @@
             if (param) {
                 [param.children addObject:obj];
             }
+            [arr addObject:param];
         }
-    }
+     }
+    }];
+    
+    [arr enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        __block NSInteger canSelectCount = 0;
+        [obj.children enumerateObjectsUsingBlock:^(WMZTreeParam * _Nonnull sonObj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (!sonObj.canSelect) {
+                canSelectCount += 1;
+            }
+        }];
+        if (canSelectCount && canSelectCount == obj.children.count) {
+            if (obj.canSelect) {
+                obj.canSelect = NO;
+            }
+        }
     }];
 }
 
@@ -280,10 +319,10 @@
 
 #pragma WMZtreeCellDelagete
 - (void)selectNode:(WMZTreeParam *)param checkStrictly:(BOOL)checkStrictly{
+    [self setSelectNodeParentAndSonNodeStatus:param checkStrictly:checkStrictly reload:YES];
     if (self.param.wEventCheckChange) {
         self.param.wEventCheckChange(param,param.isSelected);
     }
-    [self setSelectNodeParentAndSonNodeStatus:param checkStrictly:checkStrictly reload:YES];
 }
 
 - (void)userWithNode:(WMZTreeParam *)param param:(id)data cell:(id)cell{
@@ -372,10 +411,10 @@
 - (NSArray*)getCheckedNodesWithHalfSelect:(BOOL)halfSelect{
     NSMutableArray *checkArr = [NSMutableArray new];
     for (WMZTreeParam *param in self.data) {
-        if (param.isSelected) {
+        if (param.isSelected&&param.canSelect) {
             [checkArr addObject:param];
         }else{
-            if (halfSelect&&param.halfSelect) {
+            if (halfSelect&&param.halfSelect&&param.canSelect) {
                 [checkArr addObject:param];
             }
         }
@@ -529,5 +568,22 @@
    return success;
 }
 
+
+/*
+*获取父节点
+*/
+- (WMZTreeParam*)getParentId:(NSString*)currrentID{
+    WMZTreeParam *node = self.dic[currrentID];
+    return self.dic[node.parentId];
+}
+
+
+/*
+*更新数据
+*/
+- (void)update{
+    [self setUp];
+    [self.table reloadData];
+}
 
 @end

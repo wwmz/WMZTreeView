@@ -178,7 +178,7 @@
     //默认全部展开
     .wDefaultExpandAllSet(YES)
     //不关联父节点和子节点
-    .wCheckStrictlySet(NO)
+    .wCheckStrictlySet(YES)
     //可勾选
     .wShowCheckboxSet(YES)
     //默认选中
@@ -192,6 +192,7 @@
     WMZTreeViewParam *param =TreeViewParam()
     .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
     .wDefaultExpandAllSet(YES)
+    .wShowCheckboxSet(YES)
     .wDataSet([self randomArr:10 level:5]);
     
     self.treeView = [[WMZTreeView alloc]initWithParam:param];
@@ -282,6 +283,8 @@
     return [NSArray arrayWithArray:arr];
 }
 
+
+
 //拖拽
 - (void)onBtnAction:(UIButton*)sender{
     sender.selected = ![sender isSelected];
@@ -290,6 +293,8 @@
     }else{
         [sender setTitle:@"开启拖拽" forState:UIControlStateNormal];
     }
+    
+
     self.treeView.param.wDraggableSet(sender.isSelected);
     [self.treeView updateEditing];
 }

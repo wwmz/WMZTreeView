@@ -24,9 +24,11 @@
     
     UITableView *ta = [[UITableView alloc]initWithFrame:CGRectMake(0, TreeNavBarHeight, self.view.frame.size.width,self.view.frame.size.height-TreeNavBarHeight) style:UITableViewStyleGrouped];
     [self.view addSubview:ta];
+    if (@available(iOS 11.0, *)) {
+        ta.estimatedRowHeight = 0.01;
+        ta.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     ta.estimatedRowHeight = 0.01;
-    ta.estimatedSectionFooterHeight = 0.01;
-    ta.estimatedSectionHeaderHeight = 0.01;
     ta.dataSource = self;
     ta.delegate = self;
     self.ta = ta;
@@ -52,8 +54,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self.taData count];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
