@@ -131,16 +131,13 @@
                    [sonData addObject:tmpNode];
                }
            }
-           NSMutableArray *marr = [NSMutableArray new];
+           
            for (NSInteger i = tmpNode.children.count - 1; i >= 0; i--) {
              @autoreleasepool {
                WMZTreeParam *son = tmpNode.children[i];
-               [marr addObject:son];
+               [stack addObject:son];
               }
            }
-        [stack addObjectsFromArray:[marr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return obj1<obj2;
-        }]];
        }
        return sonData;
 }

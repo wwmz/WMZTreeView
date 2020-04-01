@@ -113,8 +113,8 @@
         }
     }
     NSMutableArray *arr = [NSMutableArray new];
-    [self.dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, WMZTreeParam * _Nonnull obj, BOOL * _Nonnull stop) {
-      @autoreleasepool {
+    [items enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        @autoreleasepool {
         if (!obj.parentId) {
             [self.tree.children addObject:obj];
         }else{
@@ -123,10 +123,9 @@
                 [param.children addObject:obj];
             }
             [arr addObject:param];
+            }
         }
-     }
     }];
-    
     [arr enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         __block NSInteger canSelectCount = 0;
         [obj.children enumerateObjectsUsingBlock:^(WMZTreeParam * _Nonnull sonObj, NSUInteger idx, BOOL * _Nonnull stop) {
