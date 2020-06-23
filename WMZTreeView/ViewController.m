@@ -160,6 +160,7 @@
         TreeParam().currentIdSet(@"333").nameSet(@"第3_333级").parentIdSet(@"33"),
     ];
     WMZTreeViewParam *param =TreeViewParam()
+//    .wHideExpanIconSet(YES)
     .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
     .wDataSet(data)
     //可勾选

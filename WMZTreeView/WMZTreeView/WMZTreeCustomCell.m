@@ -8,6 +8,7 @@
 //
 
 #import "WMZTreeCustomCell.h"
+#define treeIconWidth 18
 @interface WMZTreeCustomCell()
 @end
 @implementation WMZTreeCustomCell
@@ -27,7 +28,7 @@
     CGFloat width = self.contentView.frame.size.width;
     CGFloat height = self.contentView.frame.size.height;
     
-    CGRect rect = CGRectMake(self.model.depath<=1?offset:(offset*self.parentModel.wIndent*(self.model.depath-1)), (height-18)/2, 18, 18);
+    CGRect rect = CGRectMake(self.model.depath<=1?offset:(offset*self.parentModel.wIndent*(self.model.depath-1)), (height-18)/2, [self.icon isHidden]?treeIconWidth:treeIconWidth, treeIconWidth);
     if (self.parentModel.wDraggable) {
         rect.origin.x-=38;
        self.icon.frame = rect;
@@ -63,7 +64,7 @@
     _model = model;
     self.la.text = model.name;
     self.check.selected = model.isSelected;
-    self.icon.hidden = !model.children.count;
+    self.icon.hidden =  !model.children.count?YES:(self.parentModel.wHideExpanIcon);
     
     if (self.parentModel.wHighlightCurrent&&model.canSelect&&self.parentModel.wShowCheckbox) {
         if (self.model.isSelected||self.model.halfSelect) {
