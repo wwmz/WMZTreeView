@@ -39,6 +39,8 @@ WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,     
 //是否开启拖拽节点功能  ⚠️目前只支持没有子节点的节点拖拽 如果有什么方便的办法可以支持多个cell一起拖拽的告知下
 WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,             wDraggable)
 
+//当canSelect为NO的时候 是否显示(不可点击) defaultNO
+WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,             wShowOnly)
 //默认展开的节点的 key 的数组 default nil
 WMZTreePropStatementAndPropSetFuncStatement(strong, WMZTreeViewParam, NSArray*,         wDefaultExpandedKeys)
 //相邻级节点间的水平缩进距离  默认2

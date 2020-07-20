@@ -163,6 +163,8 @@
 //    .wHideExpanIconSet(YES)
     .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
     .wDataSet(data)
+    //展示 不可选
+    .wShowOnlySet(YES)
     //可勾选
     .wShowCheckboxSet(YES)
     //手风琴效果

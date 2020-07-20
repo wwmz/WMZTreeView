@@ -18,6 +18,7 @@ WMZTreePropSetFuncImplementation(WMZTreeViewParam, UIColor*,         wHighlightC
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, CGFloat,          wNodeTextFont)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, UIColor*,         wNodeTextColor)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, NSArray*,         wDefaultExpandedKeys)
+WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wShowOnly)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wShowCheckbox)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wAccordion)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wCheckStrictly)

@@ -74,10 +74,15 @@
         }
     }
     if (self.parentModel.wShowCheckbox) {
-        self.check.hidden = !model.canSelect;
+        if (self.parentModel.wShowOnly) {
+            self.check.hidden = NO;
+        }else{
+            self.check.hidden = !model.canSelect;
+        }
     }else{
         self.check.hidden = YES;
     }
+    
     if (!self.icon.hidden) {
         self.icon.selected = model.isExpand;
     }
@@ -94,7 +99,7 @@
 }
 
 - (void)checkAction:(UIButton*)btn{
-    
+    if (!self.model.canSelect) return;
     self.model.isSelected = !self.model.isSelected;
     if (self.delagete&&[self.delagete respondsToSelector:@selector(selectNode:checkStrictly:)]) {
         [self.delagete selectNode:self.model checkStrictly:self.parentModel.wCheckStrictly];
