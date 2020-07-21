@@ -196,7 +196,7 @@
     .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
     .wDefaultExpandAllSet(YES)
     .wShowCheckboxSet(YES)
-    .wDataSet([self randomArr:10 level:5]);
+    .wDataSet([self randomArr:20 level:5]);
     
     self.treeView = [[WMZTreeView alloc]initWithParam:param];
     [self.view addSubview:self.treeView];

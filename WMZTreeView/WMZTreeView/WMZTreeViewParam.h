@@ -28,6 +28,8 @@ WMZTreePropStatementAndPropSetFuncStatement(strong, WMZTreeViewParam, UIColor*, 
 
 //是否默认展开所有节点  default NO
 WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,             wDefaultExpandAll)
+//同级的能否多选 default YES 设置为NO的时候 wCheckStrictly为NO 
+WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,             wCanMultipleSelect)
 //在显示复选框的情况下，是否严格的遵循父子互相关联的做法，defualt为 NO
 WMZTreePropStatementAndPropSetFuncStatement(assign, WMZTreeViewParam, BOOL,             wCheckStrictly)
 //隐藏展开图标，defualt为 NO

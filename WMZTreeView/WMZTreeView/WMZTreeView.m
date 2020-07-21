@@ -66,6 +66,7 @@
             break;
         }
     }
+
     self.tree = TreeParam();
     if (JSON) {
         [self changeJSONtToTreeModel:self.param.wData type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent];
@@ -74,7 +75,7 @@
         [self dealTreeData:self.param.wData];
         [self.data addObjectsFromArray:[self getSonData:self.tree type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent ]];
     }
-    
+
     if (!self.data.count) {
         [self.table removeFromSuperview];
         [self addSubview:self.emptyView];
@@ -83,12 +84,9 @@
         [self.emptyView removeFromSuperview];
         [self addSubview:self.table];
         self.table.editing = self.param.wDraggable;
-        self.table.delegate = self;
-        self.table.dataSource = self;
     }
     
     if (self.param.wDefaultExpandedKeys) {
-        
         for (NSString *key in self.param.wDefaultExpandedKeys) {
             WMZTreeParam *value = self.dic[key];
             if (value) {
@@ -98,8 +96,8 @@
                 }
             }
         }
-        [self.table reloadData];
     }
+    [self.table reloadData];
 }
 
 /*
@@ -238,7 +236,9 @@
     if (toParam.parentId) {
         WMZTreeParam *parent = self.dic[toParam.parentId];
         NSInteger index = [parent.children indexOfObject:toParam];
-        [parent.children insertObject:param atIndex:index];
+        if (index<=parent.children.count) {
+            [parent.children insertObject:param atIndex:index];
+        }
     }
     [self.data removeObject:param];
     [self.data insertObject:param atIndex:destinationIndexPath.row];
@@ -333,28 +333,41 @@
  *关联所有父级和所有子级
  */
 - (void)setSelectNodeParentAndSonNodeStatus:(WMZTreeParam *)param checkStrictly:(BOOL)checkStrictly reload:(BOOL)reload{
-    if (checkStrictly) {
-          //关联上级
-          NSArray *parentNode = nil;
-          if (param.parentId) {
-              parentNode = [self searchAllParentNode:param];
+    //关闭多选
+    if (!self.param.wCanMultipleSelect) {
+        NSArray *sameLevel = [self getSonData:param type:TreeDataSameLevel];
+        NSLog(@"%@",sameLevel);
+        [sameLevel enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.isSelected = NO;
+            obj.halfSelect = NO;
+        }];
+        if (reload) {
+            [self.table reloadData];
+        }
+    }else{
+        if (checkStrictly) {
+              //关联上级
+              NSArray *parentNode = nil;
+              if (param.parentId) {
+                  parentNode = [self searchAllParentNode:param];
+              }
+                
+              //关联下级
+              if (param.children.count) {
+                  [self getSonData:param type:TreeDataSelectAll];
+              }
+                
+              if (reload) {
+                  [self.table reloadData];
+              }
+          }else{
+              //不关联直接刷新
+              NSIndexPath *path = [NSIndexPath indexPathForRow:[self.data indexOfObject:param] inSection:0];
+              [self.table beginUpdates];
+              [self.table reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+              [self.table endUpdates];
           }
-            
-          //关联下级
-          if (param.children.count) {
-              [self getSonData:param type:TreeDataSelectAll];
-          }
-            
-          if (reload) {
-              [self.table reloadData];
-          }
-      }else{
-          //不关联直接刷新
-          NSIndexPath *path = [NSIndexPath indexPathForRow:[self.data indexOfObject:param] inSection:0];
-          [self.table beginUpdates];
-          [self.table reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-          [self.table endUpdates];
-      }
+    }
 }
 
 /*

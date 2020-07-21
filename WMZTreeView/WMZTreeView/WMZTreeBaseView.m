@@ -79,6 +79,7 @@
     [stack addObject:node];
     WMZTreeParam *tmpNode = [WMZTreeParam new];
     while (stack.count) {
+           WMZTreeParam *son = nil;
            tmpNode = stack.lastObject;
            WMZTreeParam *parentNode = self.dic[tmpNode.parentId];
            [stack removeLastObject];
@@ -126,6 +127,16 @@
                        }
                    }
                }
+           }else if(type == TreeDataSameLevel){
+               if (parentNode) {
+                   for (NSInteger i = 0; i < parentNode.children.count; i++) {
+                       son = parentNode.children[i];
+                       if (son!=tmpNode) {
+                           [sonData addObject:son];
+                       }
+                   }
+                    break;
+               }
            }else{
                if (tmpNode!=node) {
                    [sonData addObject:tmpNode];
@@ -133,10 +144,8 @@
            }
            
            for (NSInteger i = tmpNode.children.count - 1; i >= 0; i--) {
-             @autoreleasepool {
-               WMZTreeParam *son = tmpNode.children[i];
+               son = tmpNode.children[i];
                [stack addObject:son];
-              }
            }
        }
        return sonData;
@@ -202,10 +211,14 @@
 - (UITableView *)table{
     if (!_table) {
         _table = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStyleGrouped];
+        _table.estimatedRowHeight = 100;
         if (@available(iOS 11.0, *)) {
-              _table.estimatedRowHeight = 0.01;
-              _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _table.estimatedSectionFooterHeight = 0.01;
+            _table.estimatedSectionHeaderHeight = 0.01;
+            _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+       _table.delegate = (id)self;
+       _table.dataSource = (id)self;
     }
     return _table;
 }

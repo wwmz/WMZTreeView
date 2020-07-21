@@ -18,6 +18,7 @@ WMZTreePropSetFuncImplementation(WMZTreeViewParam, UIColor*,         wHighlightC
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, CGFloat,          wNodeTextFont)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, UIColor*,         wNodeTextColor)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, NSArray*,         wDefaultExpandedKeys)
+WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wCanMultipleSelect)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wShowOnly)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wShowCheckbox)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, BOOL,             wAccordion)
@@ -52,6 +53,7 @@ WMZTreeViewParam * TreeViewParam(void){
         _wSelectCheckIcon = @"treeCheckSelect";
         _wHalfSelectCheckIcon = @"treeHalfSelect";
         _wCheckStrictly = YES;
+        _wCanMultipleSelect = YES;
     }
     return self;
 }
