@@ -44,6 +44,7 @@ return self;                                                                    
 
 typedef enum :NSInteger{
     TreeDataAllWithSelf   ,                    //获取全部包括自身
+    TreeDataGetSelectAll              ,        //获取全部数据不包括自身
     TreeDataAll              ,                 //获取全部(以下全不包括自身)
     TreeDataSelectAll              ,           //全部选中的子节点
     TreeDataSameLevel              ,           //获取同级的节点

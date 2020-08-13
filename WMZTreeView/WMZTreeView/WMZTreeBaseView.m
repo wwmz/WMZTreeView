@@ -100,6 +100,10 @@
                    tmpNode.isExpand = YES;
                    [sonData addObject:tmpNode];
                }
+           }else if (type == TreeDataGetSelectAll) {
+               if (tmpNode!=node) {
+                   [sonData addObject:tmpNode];
+               }
            }else if (type == TreeDataSelectAll) {
                if (tmpNode!=node) {
                    tmpNode.isSelected = node.isSelected;
@@ -117,7 +121,7 @@
                }
            }else if(type == TreeDataDelete || type == TreeDataInsert){
                if (tmpNode!=node) {
-                   if (tmpNode.parentId == node.currentId) {
+                   if ([tmpNode.parentId isEqualToString: node.currentId]) {
                        if (type == TreeDataInsert?(parentNode.isExpand):(!parentNode.isExpand)) {
                            [sonData addObject:tmpNode];
                        }
@@ -139,7 +143,9 @@
                }
            }else{
                if (tmpNode!=node) {
-                   [sonData addObject:tmpNode];
+                   if (tmpNode) {
+                        [sonData addObject:tmpNode];
+                   }
                }
            }
            

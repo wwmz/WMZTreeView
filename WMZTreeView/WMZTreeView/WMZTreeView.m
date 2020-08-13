@@ -36,7 +36,8 @@
 *全选
 */
 - (void)selectAll{
-    for (WMZTreeParam *param in self.data) {
+    NSMutableArray *insetArr = [self getSonData:self.tree type:TreeDataGetSelectAll];
+    for (WMZTreeParam *param in insetArr) {
         if (param.canSelect) {
             param.isSelected = YES;
         }
@@ -48,7 +49,8 @@
 *全部取消选中
 */
 - (void)notSelectAll{
-    for (WMZTreeParam *param in self.data) {
+    NSMutableArray *insetArr = [self getSonData:self.tree type:TreeDataGetSelectAll];
+    for (WMZTreeParam *param in insetArr) {
         if (param.canSelect) {
             param.isSelected = NO;
         }
@@ -336,7 +338,6 @@
     //关闭多选
     if (!self.param.wCanMultipleSelect) {
         NSArray *sameLevel = [self getSonData:param type:TreeDataSameLevel];
-        NSLog(@"%@",sameLevel);
         [sameLevel enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             obj.isSelected = NO;
             obj.halfSelect = NO;
