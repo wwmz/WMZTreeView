@@ -422,8 +422,9 @@
  *获取当前选中的节点数组
  */
 - (NSArray*)getCheckedNodesWithHalfSelect:(BOOL)halfSelect{
+    NSMutableArray *allData = [self getSonData:self.tree type:TreeDataGetSelectAll];
     NSMutableArray *checkArr = [NSMutableArray new];
-    for (WMZTreeParam *param in self.data) {
+    for (WMZTreeParam *param in allData) {
         if (param.isSelected&&param.canSelect) {
             [checkArr addObject:param];
         }else{
