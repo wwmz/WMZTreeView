@@ -596,6 +596,7 @@
 *更新数据
 */
 - (void)update{
+    [self.data removeAllObjects];
     [self setUp];
     [self.table reloadData];
 }
