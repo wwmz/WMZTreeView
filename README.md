@@ -1,4 +1,5 @@
 ## UI效果仿照前端element-UI的[Tree控件](https://element.eleme.cn/#/zh-CN/component/tree)
+## 有问题加群937909825哈
 # **视图层**
 ### 正常树形显示
 
@@ -251,7 +252,7 @@ TreeParam()
 
 许可证
 ==============
-LEETheme 使用 MIT 许可证，详情见 [LICENSE](LICENSE) 文件。
+使用 MIT 许可证，详情见 [LICENSE](LICENSE) 文件。
 
 
 个人主页
