@@ -52,7 +52,7 @@ WMZTreeViewParam * TreeViewParam(void){
         _wCheckIcon = @"treeCheck";
         _wSelectCheckIcon = @"treeCheckSelect";
         _wHalfSelectCheckIcon = @"treeHalfSelect";
-        _wCheckStrictly = YES;
+        _wCheckStrictly = NO;
         _wCanMultipleSelect = YES;
     }
     return self;

@@ -59,7 +59,6 @@
 }
 
 - (void)setUp{
-    
     if (!self.param.wData||![self.param.wData isKindOfClass:[NSArray class]]) return;
     BOOL JSON = NO;
     for (id model in self.param.wData) {
@@ -281,41 +280,44 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     WMZTreeParam *param = self.data[indexPath.row];
-    param.isExpand = !param.isExpand;
-    if (param.children.count) {
-        if (param.isExpand) {
-            NSMutableArray *insetArr = [self getSonData:param type:TreeDataInsert];
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(indexPath.row + 1, insetArr.count)];
-            [self.data insertObjects:insetArr atIndexes:indexSet];
-        }else{
-            NSArray *arr = [self getSonData:param type:TreeDataDelete];
-            [self.data removeObjectsInArray:arr];
-        }
-    }
-    else{
-        param.isExpand = NO;
-    }
-    
-    
-    //手风琴效果
-    if (self.param.wAccordion&&param.isExpand) {
-        WMZTreeParam *parentModel =  param.parentId?(self.dic[param.parentId]):self.tree;
-        for (WMZTreeParam *model in parentModel.children) {
-            if (!model.isExpand||model == param) continue;
-            if (model.isExpand) {
-                model.isExpand = NO;
-                [self.data removeObjectsInArray:[self getSonData:model type:TreeDataDelete]];
-            }
-       }
-    }
-    //设计数据过多 全局刷新
-    [self.table reloadData];
-    
-    if (self.param.wEventNodeClick) {
-        self.param.wEventNodeClick(param);
-    }
+    [self tapNodeAction:param indexRow:indexPath.row];
 }
 
+- (void)tapNodeAction:(WMZTreeParam*)param indexRow:(NSInteger)row{
+   param.isExpand = !param.isExpand;
+   if (param.children.count) {
+       if (param.isExpand) {
+           NSMutableArray *insetArr = [self getSonData:param type:TreeDataInsert];
+           NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row + 1, insetArr.count)];
+           [self.data insertObjects:insetArr atIndexes:indexSet];
+       }else{
+           NSArray *arr = [self getSonData:param type:TreeDataDelete];
+           [self.data removeObjectsInArray:arr];
+       }
+   }
+   else{
+       param.isExpand = NO;
+   }
+   
+   
+   //手风琴效果
+   if (self.param.wAccordion&&param.isExpand) {
+       WMZTreeParam *parentModel =  param.parentId?(self.dic[param.parentId]):self.tree;
+       for (WMZTreeParam *model in parentModel.children) {
+           if (!model.isExpand||model == param) continue;
+           if (model.isExpand) {
+               model.isExpand = NO;
+               [self.data removeObjectsInArray:[self getSonData:model type:TreeDataDelete]];
+           }
+      }
+   }
+   //设计数据过多 全局刷新
+   [self.table reloadData];
+   
+   if (self.param.wEventNodeClick) {
+       self.param.wEventNodeClick(param);
+   }
+}
 
 
 #pragma WMZtreeCellDelagete
@@ -347,27 +349,27 @@
         }
     }else{
         if (checkStrictly) {
-              //关联上级
-              NSArray *parentNode = nil;
-              if (param.parentId) {
-                  parentNode = [self searchAllParentNode:param];
-              }
-                
-              //关联下级
-              if (param.children.count) {
-                  [self getSonData:param type:TreeDataSelectAll];
-              }
-                
-              if (reload) {
-                  [self.table reloadData];
-              }
-          }else{
-              //不关联直接刷新
-              NSIndexPath *path = [NSIndexPath indexPathForRow:[self.data indexOfObject:param] inSection:0];
-              [self.table beginUpdates];
-              [self.table reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-              [self.table endUpdates];
+          //关联上级
+          NSArray *parentNode = nil;
+          if (param.parentId) {
+              parentNode = [self searchAllParentNode:param];
           }
+            
+          //关联下级
+          if (param.children.count) {
+              [self getSonData:param type:TreeDataSelectAll];
+          }
+            
+          if (reload) {
+              [self.table reloadData];
+          }
+      }else{
+          //不关联直接刷新
+          NSIndexPath *path = [NSIndexPath indexPathForRow:[self.data indexOfObject:param] inSection:0];
+          [self.table beginUpdates];
+          [self.table reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+          [self.table endUpdates];
+      }
     }
 }
 
@@ -459,7 +461,16 @@
     NSInteger index = [self.data indexOfObject:parent];
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+ parentExpandArr.count + 1, arr.count)];
     [self.data insertObjects:arr atIndexes:indexSet];
+    
+    if (!parent.isExpand) {
+        NSInteger num = [self.data indexOfObject:parent];
+        if (num!=NSNotFound) {
+            [self tapNodeAction:parent indexRow:num];
+        }
+    }
+    
     [self.table reloadData];
+    
     return success;
 }
 
