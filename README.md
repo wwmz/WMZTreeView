@@ -1,5 +1,4 @@
 ## UI效果仿照前端element-UI的[Tree控件](https://element.eleme.cn/#/zh-CN/component/tree)
-## 有问题加群937909825哈
 # **视图层**
 ### 正常树形显示
 
