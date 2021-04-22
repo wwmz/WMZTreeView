@@ -43,7 +43,7 @@
         //数据为空时的占位图
         .wEmptyDataSet(@{@"name":@"暂无数据",@"image":@"default_maintenance"})
         //frame
-        .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+        .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
         //缩进距离
         .wIndentSet(2)
         //手风琴效果 同级只展开一级
@@ -103,7 +103,7 @@
 //正常多叉树显示
 - (void)firstDemo{
     WMZTreeViewParam *param =TreeViewParam()
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     .wDataSet([self randomArr:100 level:10]);
     self.treeView = [[WMZTreeView alloc]initWithParam:param];
     [self.view addSubview:self.treeView];
@@ -113,7 +113,7 @@
 - (void)secondDemo{
     WMZTreeViewParam *param =TreeViewParam()
     .wDataSet([self randomArr:10 level:5])
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     //节点字体高亮颜色
     .wHighlightCurrentSet(TreeColor(0x1d76db))
     //可勾选
@@ -126,7 +126,7 @@
 - (void)thirdDemo{
     __weak ViewController *weakSelf = self;
     WMZTreeViewParam *param =TreeViewParam()
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     .wDataSet([self randomArr:10 level:5])
     //自定义节点内容
     .wEventTreeCellSet(^UITableViewCell *(id model, NSIndexPath *path,UITableView *table,id param) {
@@ -161,7 +161,7 @@
     ];
     WMZTreeViewParam *param =TreeViewParam()
 //    .wHideExpanIconSet(YES)
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     .wDataSet(data)
     //展示 不可选
     .wShowOnlySet(YES)
@@ -177,7 +177,7 @@
 - (void)fiveDemo{
     WMZTreeViewParam *param =TreeViewParam()
     .wDataSet(([self randomArr:10 level:5]))
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     //默认全部展开
     .wDefaultExpandAllSet(YES)
     //不关联父节点和子节点
@@ -193,7 +193,7 @@
 //开启拖拽
 - (void)sixDemo{
     WMZTreeViewParam *param =TreeViewParam()
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     .wDefaultExpandAllSet(YES)
     .wShowCheckboxSet(YES)
     .wDataSet([self randomArr:20 level:5]);
@@ -213,7 +213,7 @@
 //传字典数据
 - (void)sevenDemo{
     WMZTreeViewParam *param =TreeViewParam()
-    .wFrameSet(CGRectMake(0, TreeNavBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-TreeNavBarHeight))
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
     .wShowCheckboxSet(YES)
     .wDataSet([self jsonData]);
     self.treeView = [[WMZTreeView alloc]initWithParam:param];

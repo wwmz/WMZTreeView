@@ -11,7 +11,7 @@ WMZTreeViewParam *param =TreeViewParam() .wDataSet(@[TreeParam(),TreeParam()])
 self.treeView = [[WMZTreeView alloc]initWithParam:param];
 [self.view addSubview:self.treeView];
 ```
-
+### pod更新至1.0.4
 ### 可选中树形+选中高亮显示
 
 ![treeSelect.gif](https://upload-images.jianshu.io/upload_images/9163368-22a48815e35c5df9.gif?imageMogr2/auto-orient/strip)
@@ -233,9 +233,6 @@ TreeParam()
 2. 在 Podfile 中添加 `pod 'WMZTreeView'`。
 3. 执行 `pod install` 或 `pod update`。
 4. 导入 #import "WMZTreeView.h"。
-
-### 注:要消除链式编程的警告 
-要在Buildding Settings 把CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF 设为NO
 
 ### 手动安装
 

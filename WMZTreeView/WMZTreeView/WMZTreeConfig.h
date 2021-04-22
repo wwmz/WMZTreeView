@@ -17,17 +17,9 @@
 #define  TreeWidth   [UIScreen mainScreen].bounds.size.width
 #define  TreeHeight  [UIScreen mainScreen].bounds.size.height
 
-#define  TreeIS_iPhoneX (CGSizeEqualToSize(CGSizeMake(375.f, 812.f), [UIScreen mainScreen].bounds.size) || CGSizeEqualToSize(CGSizeMake(812.f, 375.f), [UIScreen mainScreen].bounds.size)  || CGSizeEqualToSize(CGSizeMake(414.f, 896.f), [UIScreen mainScreen].bounds.size) || CGSizeEqualToSize(CGSizeMake(896.f, 414.f), [UIScreen mainScreen].bounds.size))
-//状态栏高度
-#define TreeStatusBarHeight (TreeIS_iPhoneX ? 44.f : 20.f)
-//导航栏高度
-#define TreeNavBarHeight (44.f+TreeStatusBarHeight)
-
 #define TreeAlert(TITLE,MESSAGE,QUVC) UIAlertController *alertController = [UIAlertController alertControllerWithTitle:TITLE message:MESSAGE preferredStyle:UIAlertControllerStyleAlert];\
 [alertController addAction:[UIAlertAction actionWithTitle:@"确定"style:UIAlertActionStyleDefault handler:nil]];\
 [QUVC presentViewController:alertController animated:YES completion:nil];
-
-
 
 
 #define WMZTreePropStatementAndPropSetFuncStatement(propertyModifier,className, propertyPointerType, propertyName)           \
@@ -37,7 +29,7 @@
 #define WMZTreePropSetFuncImplementation(className, propertyPointerType, propertyName)                                       \
 - (className * (^) (propertyPointerType propertyName))propertyName##Set{                                                \
 return ^(propertyPointerType propertyName) {                                                                            \
-_##propertyName = propertyName;                                                                                         \
+self->_##propertyName = propertyName;                                                                                         \
 return self;                                                                                                            \
 };                                                                                                                      \
 }

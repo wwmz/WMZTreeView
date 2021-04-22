@@ -22,7 +22,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UITableView *ta = [[UITableView alloc]initWithFrame:CGRectMake(0, TreeNavBarHeight, self.view.frame.size.width,self.view.frame.size.height-TreeNavBarHeight) style:UITableViewStyleGrouped];
+    UITableView *ta = [[UITableView alloc]initWithFrame:CGRectMake(0, 88, self.view.frame.size.width,self.view.frame.size.height-88) style:UITableViewStyleGrouped];
     [self.view addSubview:ta];
     if (@available(iOS 11.0, *)) {
         ta.estimatedRowHeight = 0.01;
