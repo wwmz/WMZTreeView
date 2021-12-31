@@ -9,7 +9,6 @@
 #ifndef WMZTreeConfig_h
 #define WMZTreeConfig_h
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #define TreeColor(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -35,47 +34,40 @@ return self;                                                                    
 }
 
 typedef enum :NSInteger{
-    TreeDataAllWithSelf   ,                    //获取全部包括自身
-    TreeDataGetSelectAll              ,        //获取全部数据不包括自身
-    TreeDataAll              ,                 //获取全部(以下全不包括自身)
-    TreeDataSelectAll              ,           //全部选中的子节点
-    TreeDataSameLevel              ,           //获取同级的节点
-    TreeDataExpandOrNotParent        ,         //获取展开的和第一级
-    TreeDataInsert           ,                 //增加
-    TreeDataDelete           ,                 //删除
+    ///获取全部包括自身
+    TreeDataAllWithSelf,
+    ///获取全部数据不包括自身
+    TreeDataGetSelectAll,
+    ///获取全部(以下全不包括自身)
+    TreeDataAll,
+    ///全部选中的子节点
+    TreeDataSelectAll,
+    ///获取同级的节点
+    TreeDataSameLevel,
+    ///获取展开的和第一级
+    TreeDataExpandOrNotParent,
+    ///增加
+    TreeDataInsert,
+    ///删除
+    TreeDataDelete,
 }TreeDataType;
 
-
-/*
- * 点击
- */
+/// 点击
 typedef void (^NodeClickBlock)(id node);
 
-/*
- * 勾选
- */
+/// 勾选
 typedef void (^NodeCheckChange)(id node,BOOL isSelect);
 
-/*
- * cell
- */
+/// cell
 typedef UITableViewCell* (^CustomTreeCell)(id model,NSIndexPath* path,UITableView *table,id param);
 
-/*
- * cell交互
- */
+/// cell交互
 typedef void (^CellUserEnabled)(id model,NSIndexPath* path,UITableView *table,id userInfo);
 
-
-/*
- * cell拖拽
- */
-
+/// cell拖拽
 typedef void (^CellDraggable)(NSIndexPath* sourceIndexPath,NSIndexPath* destinationIndexPath,UITableView *table);
 
-/*
-* cell height
-*/
+/// cell height
 typedef CGFloat (^CustomTreeCellHeight)(id model,NSIndexPath* path,UITableView *table);
 
 #endif /* WMZTreeConfig_h */

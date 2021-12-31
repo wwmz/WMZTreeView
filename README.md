@@ -1,5 +1,10 @@
 ## UI效果仿照前端element-UI的[Tree控件](https://element.eleme.cn/#/zh-CN/component/tree)
+ [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](https://developer.apple.com/iphone/index.action) 
+ [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/WMZTreeView.svg)](https://img.shields.io/cocoapods/v/WMZTreeView.svg)
+ [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org) 
+
 # **视图层**
+
 ### 正常树形显示
 
 这里显示十级  每级100条数据 总共1000条数据的效果图
@@ -11,7 +16,6 @@ WMZTreeViewParam *param =TreeViewParam() .wDataSet(@[TreeParam(),TreeParam()])
 self.treeView = [[WMZTreeView alloc]initWithParam:param];
 [self.view addSubview:self.treeView];
 ```
-### pod更新至1.0.4
 ### 可选中树形+选中高亮显示
 
 ![treeSelect.gif](https://upload-images.jianshu.io/upload_images/9163368-22a48815e35c5df9.gif?imageMogr2/auto-orient/strip)
@@ -170,44 +174,88 @@ TreeParam()
 
 2.NSDictionary
 ```
-@[@{
-            @"name":@"1级",
-            @"currentId":@"1",
-            @"children":@[
+    @[
+        @{
+            WMZTreeName:@"1级",
+            WMZTreeCurrentId:@"1",
+            WMZTreeChildren:@[
                     @{
-                        @"name":@"1_2_1级",
-                        @"currentId":@"1_2_1",
-                        @"parentId":@"1",
-                        @"children":@[
+                        WMZTreeName:@"1_2_1级",
+                        WMZTreeCurrentId:@"1_2_1",
+                        WMZTreeParentId:@"1",
+                        WMZTreeChildren:@[
                                            @{
-                                               @"name":@"1_3_1级",
-                                               @"currentId":@"1_3_1",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_1级",
+                                               WMZTreeCurrentId:@"1_3_1",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                            @{
-                                               @"name":@"1_3_2级",
-                                               @"currentId":@"1_3_2",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_2级",
+                                               WMZTreeCurrentId:@"1_3_2",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                           @{
-                                               @"name":@"1_3_3级",
-                                               @"currentId":@"1_3_3",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_3级",
+                                               WMZTreeCurrentId:@"1_3_3",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                    ]
                     },
                     @{
-                        @"name":@"1_2_2级",
-                        @"currentId":@"1_2_2",
-                        @"parentId":@"1",
+                        WMZTreeName:@"1_2_2级",
+                        WMZTreeCurrentId:@"1_2_2",
+                        WMZTreeParentId:@"1",
                     },
                    @{
-                        @"name":@"1_2_3级",
-                        @"currentId":@"1_2_3",
-                        @"parentId":@"1",
+                        WMZTreeName:@"1_2_3级",
+                        WMZTreeCurrentId:@"1_2_3",
+                        WMZTreeParentId:@"1",
                     },
             ]
-    }]
+        },
+        @{
+            WMZTreeName:@"2级",
+            WMZTreeCurrentId:@"2",
+            WMZTreeChildren:@[
+                    @{
+                        WMZTreeName:@"2_2_1级",
+                        WMZTreeCurrentId:@"2_2_1",
+                        WMZTreeParentId:@"2",
+                    },
+                    @{
+                        WMZTreeName:@"2_2_2级",
+                        WMZTreeCurrentId:@"2_2_2",
+                        WMZTreeParentId:@"2",
+                    },
+                   @{
+                        WMZTreeName:@"2_2_3级",
+                        WMZTreeCurrentId:@"2_2_3",
+                        WMZTreeParentId:@"2",
+                    },
+            ]
+        },
+        @{
+            WMZTreeName:@"3级",
+            WMZTreeCurrentId:@"3",
+            WMZTreeChildren:@[
+                    @{
+                        WMZTreeName:@"3_2_1级",
+                        WMZTreeCurrentId:@"3_2_1",
+                        WMZTreeParentId:@"3",
+                    },
+                    @{
+                        WMZTreeName:@"3_2_2级",
+                        WMZTreeCurrentId:@"3_2_2",
+                        WMZTreeParentId:@"3",
+                    },
+                   @{
+                        WMZTreeName:@"3_2_3级",
+                        WMZTreeCurrentId:@"3_2_3",
+                        WMZTreeParentId:@"3",
+                    },
+            ]
+        }
+    ]
 ```
 
 ## 配置参数

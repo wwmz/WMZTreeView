@@ -10,6 +10,15 @@
 
 #import "WMZTreeViewParam.h"
 
+WMZTreeParamKey const WMZTreeName = @"name";
+WMZTreeParamKey const WMZTreeImage = @"image";
+WMZTreeParamKey const WMZTreeCurrentId = @"currentId";
+WMZTreeParamKey const WMZTreeParentId = @"parentId";
+WMZTreeParamKey const WMZTreeExpand = @"isExpand";
+WMZTreeParamKey const WMZTreeCanSelect = @"canSelect";
+WMZTreeParamKey const WMZTreeExistData = @"data";
+WMZTreeParamKey const WMZTreeChildren = @"children";
+
 @implementation WMZTreeViewParam
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, NSArray*,         wData)
 WMZTreePropSetFuncImplementation(WMZTreeViewParam, CGRect,           wFrame)

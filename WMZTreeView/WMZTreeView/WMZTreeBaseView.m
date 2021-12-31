@@ -7,71 +7,47 @@
 //
 
 #import "WMZTreeBaseView.h"
+
 @interface WMZTreeBaseView()
-//主视图 readwrite本类调用
-@property(nonatomic,strong,readwrite)UITableView *table;
-//已展开的树形数组
-@property(nonatomic,strong,readwrite)NSMutableArray *data;
-//全部字典
-@property(nonatomic,strong,readwrite)NSMutableDictionary *dic;
-//数据为空的占位显示图
-@property(nonatomic,strong,readwrite)UIView *emptyView;
+/// 已展开的树形数组
+@property(nonatomic, strong, readwrite) NSMutableArray *data;
+/// 全部字典
+@property(nonatomic, strong, readwrite) NSMutableDictionary *dic;
+/// 数据为空的占位显示图
+@property(nonatomic, strong, readwrite) UIView *emptyView;
+
 @end
+
 @implementation WMZTreeBaseView
-/*
- *处理空视图
- */
+
+/// 处理空视图
 - (void)setUpEmptyView:(NSDictionary*)dic{
     UIImageView *image = (UIImageView*)[self.emptyView viewWithTag:999];
     UILabel *la = (UILabel*)[self.emptyView viewWithTag:998];
     la.center = self.emptyView.center;
     image.frame = CGRectMake(image.frame.origin.x, CGRectGetMinY(la.frame)-image.frame.size.height, image.frame.size.width, image.frame.size.height);
     image.center = CGPointMake(self.emptyView.center.x, image.center.y);
-    if (dic[@"image"]) {
-        image.image = [UIImage imageNamed:dic[@"image"]];
-    }
-    if (dic[@"name"]) {
-        la.text = dic[@"name"];
-    }
+    if (dic[WMZTreeImage]) image.image = [UIImage imageNamed:dic[WMZTreeImage]];
+    if (dic[WMZTreeName]) la.text = dic[WMZTreeName];
 }
-
 
 - (WMZTreeParam*)dictionaryToParam:(NSDictionary*)dic{
     WMZTreeParam *param = TreeParam();
-    if (dic[@"name"]) {
-        param.nameSet(dic[@"name"]);
-    }
-    if (dic[@"currentId"]) {
-        param.currentIdSet(dic[@"currentId"]);
-    }
-    if (dic[@"parentId"]) {
-        param.parentIdSet(dic[@"parentId"]);
-    }
-    if (dic[@"isExpand"]) {
-        param.isExpandSet([dic[@"isExpand"] boolValue]);
-    }
-    if (dic[@"canSelect"]) {
-        param.canSelectSet([dic[@"canSelect"] boolValue]);
-    }
-    if (dic[@"data"]) {
-        param.dataSet(dic[@"data"]);
-    }
-    if (dic[@"children"]) {
-        param.children = [NSMutableArray arrayWithArray:dic[@"children"]];
-     }
+    if (dic[WMZTreeName]) param.nameSet(dic[WMZTreeName]);
+    if (dic[WMZTreeCurrentId]) param.currentIdSet(dic[WMZTreeCurrentId]);
+    if (dic[WMZTreeParentId]) param.parentIdSet(dic[WMZTreeParentId]);
+    if (dic[WMZTreeExpand]) param.isExpandSet([dic[WMZTreeExpand] boolValue]);
+    if (dic[WMZTreeCanSelect]) param.canSelectSet([dic[WMZTreeCanSelect] boolValue]);
+    if (dic[WMZTreeExistData]) param.dataSet(dic[WMZTreeExistData]);
+    if (dic[WMZTreeChildren]) param.children = [NSMutableArray arrayWithArray:dic[WMZTreeChildren]];
     if (param.currentId) {
         [self.dic setObject:param forKey:param.currentId];
-        if (!param.parentId) {
-            [self.tree.children addObject:param];
-        }
+        if (!param.parentId && param) [self.tree.children addObject:param];
     }
     return param;
 }
 
-
-/*
-*寻找所有子节点
-*/
+/// 寻找所有子节点
 - (NSMutableArray*)getSonData:(WMZTreeParam*)node type:(TreeDataType)type{
     NSMutableArray *sonData = [NSMutableArray new];
     if (!node) return sonData;
@@ -89,20 +65,20 @@
            }
            if (type == TreeDataAllWithSelf) {
                if (parentNode.isExpand) {
-                   [sonData addObject:tmpNode];
+                   if(tmpNode) [sonData addObject:tmpNode];
                }else{
                    if (parentNode.isExpand&&[sonData indexOfObject:parentNode]!=NSNotFound) {
-                       [sonData addObject:tmpNode];
+                       if(tmpNode) [sonData addObject:tmpNode];
                    }
                }
            }else if (type == TreeDataAll) {
                if (tmpNode!=node) {
                    tmpNode.isExpand = YES;
-                   [sonData addObject:tmpNode];
+                   if(tmpNode) [sonData addObject:tmpNode];
                }
            }else if (type == TreeDataGetSelectAll) {
                if (tmpNode!=node) {
-                   [sonData addObject:tmpNode];
+                   if(tmpNode) [sonData addObject:tmpNode];
                }
            }else if (type == TreeDataSelectAll) {
                if (tmpNode!=node) {
@@ -114,20 +90,21 @@
            }else if (type == TreeDataExpandOrNotParent) {
                if (tmpNode!=node) {
                    if (!tmpNode.parentId) {
-                       [sonData addObject:tmpNode];
+                       if(tmpNode) [sonData addObject:tmpNode];
                    }else if (([sonData indexOfObject:parentNode]!=NSNotFound)&&parentNode.isExpand){
-                       [sonData addObject:tmpNode];
+                            if(tmpNode) [sonData addObject:tmpNode];
                    }
                }
            }else if(type == TreeDataDelete || type == TreeDataInsert){
                if (tmpNode!=node) {
                    if ([tmpNode.parentId isEqualToString: node.currentId]) {
                        if (type == TreeDataInsert?(parentNode.isExpand):(!parentNode.isExpand)) {
-                           [sonData addObject:tmpNode];
+                           if(tmpNode) [sonData addObject:tmpNode];
                        }
                    }else{
-                       if (parentNode.isExpand&&[sonData indexOfObject:parentNode]!=NSNotFound) {
-                           [sonData addObject:tmpNode];
+                       if (parentNode.isExpand&&
+                           [sonData indexOfObject:parentNode]!=NSNotFound) {
+                           if(tmpNode) [sonData addObject:tmpNode];
                        }
                    }
                }
@@ -136,35 +113,33 @@
                    for (NSInteger i = 0; i < parentNode.children.count; i++) {
                        son = parentNode.children[i];
                        if (son!=tmpNode) {
-                           [sonData addObject:son];
+                           if(son) [sonData addObject:son];
                        }
                    }
                     break;
                }
            }else{
                if (tmpNode!=node) {
-                   if (tmpNode) {
-                        [sonData addObject:tmpNode];
-                   }
+                   if (tmpNode) [sonData addObject:tmpNode];
                }
            }
            
            for (NSInteger i = tmpNode.children.count - 1; i >= 0; i--) {
                son = tmpNode.children[i];
-               [stack addObject:son];
+               if(son) [stack addObject:son];
            }
        }
        return sonData;
 }
 
 
-//寻找该节点的所有父节点
+/// 寻找该节点的所有父节点
 - (NSArray*)searchAllParentNode:(WMZTreeParam *)param{
     NSMutableArray *arr = [NSMutableArray new];
     NSMutableArray *loop= [NSMutableArray new];
-    if (param.parentId) {
+    if (param.parentId && self.dic[param.parentId])
         [loop addObject:self.dic[param.parentId]];
-    }
+    
     while (loop.count) {
         WMZTreeParam *tmp = loop.lastObject;
         if (param.isSelected) {
@@ -188,8 +163,8 @@
             }
         }
         [loop removeLastObject];
-        [arr addObject:tmp];
-        if (tmp.parentId) {
+        if(tmp) [arr addObject:tmp];
+        if (tmp.parentId && self.dic[tmp.parentId]) {
             [loop addObject:self.dic[tmp.parentId]];
         }
     }
@@ -223,8 +198,15 @@
             _table.estimatedSectionHeaderHeight = 0.01;
             _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-       _table.delegate = (id)self;
-       _table.dataSource = (id)self;
+        #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000
+         if (@available(iOS 15.0, *)) {
+             _table.sectionHeaderTopPadding = 0;
+         }
+        #endif
+        _table.backgroundColor = UIColor.clearColor;
+        _table.dragDelegate = self;
+        _table.delegate = (id)self;
+        _table.dataSource = (id)self;
     }
     return _table;
 }

@@ -38,10 +38,10 @@
 - (void)all{
         WMZTreeViewParam *param =
         TreeViewParam()
-        .wDataSet([self randomArr:20 level:3])
+        .wDataSet([self randomArr:20 level:10])
     //    .wDataSet([self jsonData])
         //数据为空时的占位图
-        .wEmptyDataSet(@{@"name":@"暂无数据",@"image":@"default_maintenance"})
+        .wEmptyDataSet(@{WMZTreeName:@"暂无数据",WMZTreeImage:@"default_maintenance"})
         //frame
         .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
         //缩进距离
@@ -306,82 +306,82 @@
 - (NSArray*)jsonData{
     return @[
         @{
-            @"name":@"1级",
-            @"currentId":@"1",
-            @"children":@[
+            WMZTreeName:@"1级",
+            WMZTreeCurrentId:@"1",
+            WMZTreeChildren:@[
                     @{
-                        @"name":@"1_2_1级",
-                        @"currentId":@"1_2_1",
-                        @"parentId":@"1",
-                        @"children":@[
+                        WMZTreeName:@"1_2_1级",
+                        WMZTreeCurrentId:@"1_2_1",
+                        WMZTreeParentId:@"1",
+                        WMZTreeChildren:@[
                                            @{
-                                               @"name":@"1_3_1级",
-                                               @"currentId":@"1_3_1",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_1级",
+                                               WMZTreeCurrentId:@"1_3_1",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                            @{
-                                               @"name":@"1_3_2级",
-                                               @"currentId":@"1_3_2",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_2级",
+                                               WMZTreeCurrentId:@"1_3_2",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                           @{
-                                               @"name":@"1_3_3级",
-                                               @"currentId":@"1_3_3",
-                                               @"parentId":@"1_2_1",
+                                               WMZTreeName:@"1_3_3级",
+                                               WMZTreeCurrentId:@"1_3_3",
+                                               WMZTreeParentId:@"1_2_1",
                                            },
                                    ]
                     },
                     @{
-                        @"name":@"1_2_2级",
-                        @"currentId":@"1_2_2",
-                        @"parentId":@"1",
+                        WMZTreeName:@"1_2_2级",
+                        WMZTreeCurrentId:@"1_2_2",
+                        WMZTreeParentId:@"1",
                     },
                    @{
-                        @"name":@"1_2_3级",
-                        @"currentId":@"1_2_3",
-                        @"parentId":@"1",
+                        WMZTreeName:@"1_2_3级",
+                        WMZTreeCurrentId:@"1_2_3",
+                        WMZTreeParentId:@"1",
                     },
             ]
         },
         @{
-            @"name":@"2级",
-            @"currentId":@"2",
-            @"children":@[
+            WMZTreeName:@"2级",
+            WMZTreeCurrentId:@"2",
+            WMZTreeChildren:@[
                     @{
-                        @"name":@"2_2_1级",
-                        @"currentId":@"2_2_1",
-                        @"parentId":@"2",
+                        WMZTreeName:@"2_2_1级",
+                        WMZTreeCurrentId:@"2_2_1",
+                        WMZTreeParentId:@"2",
                     },
                     @{
-                        @"name":@"2_2_2级",
-                        @"currentId":@"2_2_2",
-                        @"parentId":@"2",
+                        WMZTreeName:@"2_2_2级",
+                        WMZTreeCurrentId:@"2_2_2",
+                        WMZTreeParentId:@"2",
                     },
                    @{
-                        @"name":@"2_2_3级",
-                        @"currentId":@"2_2_3",
-                        @"parentId":@"2",
+                        WMZTreeName:@"2_2_3级",
+                        WMZTreeCurrentId:@"2_2_3",
+                        WMZTreeParentId:@"2",
                     },
             ]
         },
         @{
-            @"name":@"3级",
-            @"currentId":@"3",
-            @"children":@[
+            WMZTreeName:@"3级",
+            WMZTreeCurrentId:@"3",
+            WMZTreeChildren:@[
                     @{
-                        @"name":@"3_2_1级",
-                        @"currentId":@"3_2_1",
-                        @"parentId":@"3",
+                        WMZTreeName:@"3_2_1级",
+                        WMZTreeCurrentId:@"3_2_1",
+                        WMZTreeParentId:@"3",
                     },
                     @{
-                        @"name":@"3_2_2级",
-                        @"currentId":@"3_2_2",
-                        @"parentId":@"3",
+                        WMZTreeName:@"3_2_2级",
+                        WMZTreeCurrentId:@"3_2_2",
+                        WMZTreeParentId:@"3",
                     },
                    @{
-                        @"name":@"3_2_3级",
-                        @"currentId":@"3_2_3",
-                        @"parentId":@"3",
+                        WMZTreeName:@"3_2_3级",
+                        WMZTreeCurrentId:@"3_2_3",
+                        WMZTreeParentId:@"3",
                     },
             ]
         }

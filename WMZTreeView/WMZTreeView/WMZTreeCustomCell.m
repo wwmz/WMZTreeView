@@ -9,8 +9,6 @@
 
 #import "WMZTreeCustomCell.h"
 #define treeIconWidth 18
-@interface WMZTreeCustomCell()
-@end
 @implementation WMZTreeCustomCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier parentModel:(WMZTreeViewParam*)parentModel{
@@ -35,7 +33,7 @@
     }else{
        self.icon.frame = rect;
     }
-    self.la.frame = CGRectMake(CGRectGetMaxX(self.icon.frame),offset , width-CGRectGetMaxX(self.icon.frame)-offset*2, height-offset*2);
+    self.la.frame = CGRectMake(CGRectGetMaxX(self.icon.frame) + 8,offset , width-CGRectGetMaxX(self.icon.frame)-offset*2, height-offset*2);
     CGFloat iconHeight = 17;
     self.check.frame = CGRectMake(width-iconHeight-offset, (height-iconHeight)/2, iconHeight, iconHeight);
 }
@@ -151,16 +149,6 @@
         _check = [UIButton buttonWithType:UIButtonTypeCustom];
     }
     return _check;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
 }
 
 @end

@@ -35,7 +35,4 @@ WMZTreeParam * TreeParam(void){
     return _children;
 }
 
--  (NSString *)description{
-    return [NSString stringWithFormat:@"currentID %@ parentId %@ isExpand %d isSelect %d isHalf %d ",self.currentId,self.parentId, self.isExpand,self.isSelected,self.halfSelect];
-}
 @end
