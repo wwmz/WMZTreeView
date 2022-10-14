@@ -27,17 +27,13 @@
 /// 更新编辑状态
 - (void)updateEditing{
     self.table.editing = self.param.wDraggable;
-    NSMutableArray *insetArr = [self getSonData:self.tree type:TreeDataGetSelectAll];
-    for (WMZTreeParam *param in insetArr) {
-        param.isExpand = NO;
-    }
     [self.table reloadData];
 }
 
 /// 全选
 - (void)selectAll{
     NSMutableArray *insetArr = [self getSonData:self.tree type:TreeDataGetSelectAll];
-    for (WMZTreeParam *param in insetArr) {
+    for (NSObject<WMZTreeProcotol> *param in insetArr) {
         if (param.canSelect) param.isSelected = YES;
     }
     [self.table reloadData];
@@ -46,14 +42,15 @@
 /// 全部取消选中
 - (void)notSelectAll{
     NSMutableArray *insetArr = [self getSonData:self.tree type:TreeDataGetSelectAll];
-    for (WMZTreeParam *param in insetArr) {
+    for (NSObject<WMZTreeProcotol> *param in insetArr) {
         if (param.canSelect) param.isSelected = NO;
     }
     [self.table reloadData];
 }
 
 - (void)setUp{
-    if (!self.param.wData||![self.param.wData isKindOfClass:[NSArray class]]) return;
+    if (!self.param.wData||
+        ![self.param.wData isKindOfClass:[NSArray class]]) return;
     BOOL JSON = NO;
     for (id model in self.param.wData) {
         if ([model isKindOfClass:[NSDictionary class]]) {
@@ -61,15 +58,17 @@
             break;
         }
     }
-
-    self.tree = TreeParam();
+    self.tree = WMZTreeParam.new;
     if (JSON) {
-        [self changeJSONtToTreeModel:self.param.wData type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent];
+        @autoreleasepool {
+            [self changeJSONtToTreeModel:self.param.wData type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent];
+        }
     }else{
-        [self dealTreeData:self.param.wData];
+        @autoreleasepool {
+            [self dealTreeData:self.param.wData];
+        }
         [self.data addObjectsFromArray:[self getSonData:self.tree type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent ]];
     }
-
     if (!self.data.count) {
         [self.table removeFromSuperview];
         [self addSubview:self.emptyView];
@@ -79,10 +78,9 @@
         [self addSubview:self.table];
         self.table.editing = self.param.wDraggable;
     }
-    
     if (self.param.wDefaultExpandedKeys) {
         for (NSString *key in self.param.wDefaultExpandedKeys) {
-            WMZTreeParam *value = self.dic[key];
+            NSObject<WMZTreeProcotol> *value = self.dic[key];
             if (value) {
                 value.isSelected = YES;
                 if (self.param.wCheckStrictly) {
@@ -94,40 +92,30 @@
     [self.table reloadData];
 }
 
-/// 解析传入的数组 传入的WMZTreeParam组成的数组
-- (void)dealTreeData:(NSArray*)items {
-    for (int i = 0; i<items.count; i++) {
-        @autoreleasepool {
-            WMZTreeParam *model = items[i];
-            [self.dic setObject:model forKey:model.currentId];
-        }
-    }
-    NSMutableArray *arr = [NSMutableArray new];
-    [items enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        @autoreleasepool {
-            if (!obj.parentId) {
-                if (obj) [self.tree.children addObject:obj];
-            }else{
-                WMZTreeParam *param = self.dic[obj.parentId];
-                if (obj) {
-                    [param.children addObject:obj];
-                }
-                if (param) {
-                    [arr addObject:param];
-                }
-            }
-        }
+/// 解析传入的数组 传入的NSObject<WMZTreeProcotol>组成的数组
+- (void)dealTreeData:(NSArray<NSObject<WMZTreeProcotol>*>*)items {
+    [items enumerateObjectsUsingBlock:^(NSObject<WMZTreeProcotol> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.dic setObject:obj forKey:obj.currentId];
     }];
-    [arr enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        __block NSInteger canSelectCount = 0;
-        [obj.children enumerateObjectsUsingBlock:^(WMZTreeParam * _Nonnull sonObj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (!sonObj.canSelect) {
-                canSelectCount += 1;
+    
+    [items enumerateObjectsUsingBlock:^(NSObject<WMZTreeProcotol>*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (!obj.parentId) {
+            if (obj && [obj conformsToProtocol:@protocol(WMZTreeProcotol)]) [self.tree.children addObject:obj];
+        }else{
+            NSObject<WMZTreeProcotol> *param = self.dic[obj.parentId];
+            if (obj && [obj conformsToProtocol:@protocol(WMZTreeProcotol)]){
+                if(!param.children) param.children = NSMutableArray.new;
+                [param.children addObject:obj];
             }
-        }];
-        if (canSelectCount && canSelectCount == obj.children.count) {
-            if (obj.canSelect) {
-                obj.canSelect = NO;
+            if (param){
+                __block NSInteger canSelectCount = 0;
+                [param.children enumerateObjectsUsingBlock:^(NSObject<WMZTreeProcotol> * _Nonnull sonObj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (!sonObj.canSelect) canSelectCount += 1;
+                }];
+                if (canSelectCount &&
+                    canSelectCount == param.children.count) {
+                    if (param.canSelect) param.canSelect = NO;
+                }
             }
         }
     }];
@@ -142,25 +130,22 @@
     id tmpDic ;
     while (stack.count) {
         tmpDic  = stack.lastObject;
-        WMZTreeParam *tmpNode = nil;
+        NSObject<WMZTreeProcotol> *tmpNode = nil;
         if ([tmpDic isKindOfClass:[NSDictionary class]]) {
             tmpNode = [self dictionaryToParam:tmpDic];
         }else{
             tmpNode = tmpDic;
         }
         if (tmpNode.parentId) {
-            WMZTreeParam *parentNode = self.dic[tmpNode.parentId];
+            NSObject<WMZTreeProcotol> *parentNode = self.dic[tmpNode.parentId];
             NSInteger index = [parentNode.children indexOfObject:tmpDic];
             parentNode.children[index] = tmpNode;
         }
-
-        
-        WMZTreeParam *parentNode = self.dic[tmpNode.parentId];
+        NSObject<WMZTreeProcotol> *parentNode = self.dic[tmpNode.parentId];
         if (!tmpNode.depath&&tmpDic!=dic) {
             tmpNode.depath = parentNode.depath+1;
         }
         [stack removeLastObject];
-        
         if (tmpNode.currentId) {
             if (type == TreeDataAll) {
                 if (tmpDic!=dic) {
@@ -171,7 +156,8 @@
                 if (self.data ) {
                     if (!tmpNode.parentId && tmpNode) {
                         [self.data addObject:tmpNode];
-                    }else if (([self.data indexOfObject:parentNode]!=NSNotFound)&&
+                    }
+                    else if (([self.data indexOfObject:parentNode]!=NSNotFound)&&
                               parentNode.isExpand &&
                               tmpNode){
                               [self.data  addObject:tmpNode];
@@ -188,8 +174,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSObject<WMZTreeProcotol> *param = self.data[indexPath.row];
     if (self.param.wEventCellHeight) {
-        return self.param.wEventCellHeight(self.data[indexPath.row],indexPath,tableView);
+        return self.param.wEventCellHeight(param,indexPath,tableView);
     }
     return 44;
 }
@@ -219,54 +206,50 @@
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    WMZTreeParam *param = self.data[sourceIndexPath.row];
-    WMZTreeParam *toParam = self.data[destinationIndexPath.row];
+    NSObject<WMZTreeProcotol> *param = self.data[sourceIndexPath.row];
+    NSObject<WMZTreeProcotol> *toParam = self.data[destinationIndexPath.row];
     if (param.parentId) {
-        WMZTreeParam *parent = self.dic[param.parentId];
+        NSObject<WMZTreeProcotol> *parent = self.dic[param.parentId];
         [parent.children removeObject:param];
     }
-    
     param.parentId = toParam.parentId;
     param.depath = toParam.depath;
     param.isExpand = NO;
     if (toParam.parentId) {
-        WMZTreeParam *parent = self.dic[toParam.parentId];
+        NSObject<WMZTreeProcotol> *parent = self.dic[toParam.parentId];
         NSInteger index = [parent.children indexOfObject:toParam];
-        if (index<=parent.children.count) {
+        if (index <= parent.children.count) {
             [parent.children insertObject:param atIndex:index];
         }
     }
     [self.data removeObject:param];
+    NSMutableArray *paramArr = [self getSonData:param type:TreeDataGetSelectAll];
     [self.data insertObject:param atIndex:destinationIndexPath.row];
-    
+    int i = 0;
+    for (NSObject<WMZTreeProcotol> *son in paramArr) {
+        if([self.data indexOfObject:son] != NSNotFound){
+            [self.data removeObject:son];
+            [self.data insertObject:son atIndex:destinationIndexPath.row + i + 1];
+        }
+        i ++;
+    }
     [tableView reloadData];
-    
     if (self.param.wEventNodeDraggable) {
         self.param.wEventNodeDraggable(sourceIndexPath, destinationIndexPath, tableView);
     }
 }
 
-
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
-    /// 目前只支持没有子集的可以拖拽
-    WMZTreeParam *param = self.data[indexPath.row];
-    if (param.children.count>0) {
-        return NO;
-    }
     return YES;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     if (self.param.wEventTreeCell) {
         WMZTreeCustomCell *cell = (WMZTreeCustomCell*)self.param.wEventTreeCell(self.data[indexPath.row],indexPath,tableView,self.param);
-        
         if ([cell isKindOfClass:WMZTreeCustomCell.class])
             cell.delagete = self;
         
-        if (cell)
-            return cell;
+        if (cell) return cell;
     }
     WMZTreeCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WMZTreeCustomCell class])];
     if (!cell) {
@@ -278,11 +261,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    WMZTreeParam *param = self.data[indexPath.row];
+    NSObject<WMZTreeProcotol> *param = self.data[indexPath.row];
     [self tapNodeAction:param indexRow:indexPath.row];
 }
 
-- (void)tapNodeAction:(WMZTreeParam*)param indexRow:(NSInteger)row{
+- (void)tapNodeAction:(NSObject<WMZTreeProcotol>*)param indexRow:(NSInteger)row{
    param.isExpand = !param.isExpand;
    if (param.children.count) {
        if (param.isExpand) {
@@ -297,12 +280,10 @@
    else{
        param.isExpand = NO;
    }
-   
-   
    /// 手风琴效果
    if (self.param.wAccordion&&param.isExpand) {
-       WMZTreeParam *parentModel =  param.parentId?(self.dic[param.parentId]):self.tree;
-       for (WMZTreeParam *model in parentModel.children) {
+       NSObject<WMZTreeProcotol> *parentModel =  param.parentId?(self.dic[param.parentId]):self.tree;
+       for (NSObject<WMZTreeProcotol> *model in parentModel.children) {
            if (!model.isExpand||model == param) continue;
            if (model.isExpand) {
                model.isExpand = NO;
@@ -312,33 +293,31 @@
    }
    /// 设计数据过多 全局刷新
    [self.table reloadData];
-   
    if (self.param.wEventNodeClick) {
        self.param.wEventNodeClick(param);
    }
 }
 
-
 #pragma WMZtreeCellDelagete
-- (void)selectNode:(WMZTreeParam *)param checkStrictly:(BOOL)checkStrictly{
+- (void)selectNode:(NSObject<WMZTreeProcotol> *)param checkStrictly:(BOOL)checkStrictly{
     [self setSelectNodeParentAndSonNodeStatus:param checkStrictly:checkStrictly reload:YES];
     if (self.param.wEventCheckChange) {
         self.param.wEventCheckChange(param,param.isSelected);
     }
 }
 
-- (void)userWithNode:(WMZTreeParam *)param param:(id)data cell:(id)cell{
+- (void)userWithNode:(NSObject<WMZTreeProcotol> *)param param:(id)data cell:(id)cell{
     if (self.param.wEventCellUserEnabled) {
         self.param.wEventCellUserEnabled(param, [self.table indexPathForCell:cell], self.table,data);
     }
 }
 
 /// 关联所有父级和所有子级
-- (void)setSelectNodeParentAndSonNodeStatus:(WMZTreeParam *)param checkStrictly:(BOOL)checkStrictly reload:(BOOL)reload{
-    //关闭多选
+- (void)setSelectNodeParentAndSonNodeStatus:(NSObject<WMZTreeProcotol> *)param checkStrictly:(BOOL)checkStrictly reload:(BOOL)reload{
+    /// 关闭多选
     if (!self.param.wCanMultipleSelect) {
         NSArray *sameLevel = [self getSonData:param type:TreeDataSameLevel];
-        [sameLevel enumerateObjectsUsingBlock:^(WMZTreeParam*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [sameLevel enumerateObjectsUsingBlock:^(NSObject<WMZTreeProcotol>*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             obj.isSelected = NO;
             obj.halfSelect = NO;
         }];
@@ -372,17 +351,16 @@
 }
 
 - (BOOL)updateKeyChildren:(NSString*)currrentID data:(NSArray*)data{
-    
     if (!currrentID) {
         NSLog(@"节点id不能为空");return NO;
     }
     
     if (currrentID&&currrentID.length) {
-        WMZTreeParam *currentParam = self.dic[currrentID];
+        NSObject<WMZTreeProcotol> *currentParam = self.dic[currrentID];
         
         /// 删除旧的
         NSArray *arr = [self getSonData:currentParam type:999];
-        for (WMZTreeParam *param in arr) {
+        for (NSObject<WMZTreeProcotol> *param in arr) {
             if ([self.data indexOfObject:param]!=NSNotFound) {
                 [self.data removeObject:param];
             }
@@ -391,7 +369,7 @@
         
         /// 替换新的
         currentParam.children = [NSMutableArray arrayWithArray:data];
-        for (WMZTreeParam *param in data) {
+        for (NSObject<WMZTreeProcotol> *param in data) {
             if (param) {
                 [self.dic setObject:param forKey:param.currentId];
             }
@@ -418,7 +396,7 @@
 - (NSArray*)getCheckedNodesWithHalfSelect:(BOOL)halfSelect{
     NSMutableArray *allData = [self getSonData:self.tree type:TreeDataGetSelectAll];
     NSMutableArray *checkArr = [NSMutableArray new];
-    for (WMZTreeParam *param in allData) {
+    for (NSObject<WMZTreeProcotol> *param in allData) {
         if (param.isSelected&&param.canSelect ) {
             if (param) [checkArr addObject:param];
         }else{
@@ -430,18 +408,18 @@
     return [NSArray arrayWithArray:checkArr];
 }
 
-- (BOOL)append:(NSString*)currrentID node:(WMZTreeParam*)param{
+- (BOOL)append:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param{
     BOOL success = NO;
     if (!currrentID) {
         NSLog(@"节点id不能为空");return NO;
     }
-    if (!param||![param isKindOfClass:[WMZTreeParam class]]) {
+    if (!param||![param isKindOfClass:[NSObject<WMZTreeProcotol> class]]) {
         NSLog(@"子节点错误");return NO;
     }
     if ([self.dic objectForKey:param.currentId]) {
         NSLog(@"要添加的节点已存在");return NO;
     }
-    WMZTreeParam *parent = self.dic[currrentID];
+    NSObject<WMZTreeProcotol> *parent = self.dic[currrentID];
     param.depath = parent.depath+1;
     NSArray *parentExpandArr =  [self getSonData:parent type:TreeDataInsert];
     if(param) [parent.children addObject:param];
@@ -468,7 +446,7 @@
         NSLog(@"节点id不能为空");return NO;
     }
     BOOL success = NO;
-    WMZTreeParam *parent = self.dic[currrentID];
+    NSObject<WMZTreeProcotol> *parent = self.dic[currrentID];
     if (!parent) {
         NSLog(@"节点不存在");return NO;
     }
@@ -482,13 +460,13 @@
         success = YES;
     }
     if (parent.parentId) {
-        WMZTreeParam *parentNode = self.dic[parent.parentId];
+        NSObject<WMZTreeProcotol> *parentNode = self.dic[parent.parentId];
         [parentNode.children removeObject:parent];
     }
     
     /// 删除子节点
     NSArray *parentExpandArr =  [self getSonData:parent type:TreeDataDelete];
-    for (WMZTreeParam *param in parentExpandArr) {
+    for (NSObject<WMZTreeProcotol> *param in parentExpandArr) {
         if ([self.dic valueForKey:param.currentId]) {
             [self.dic removeObjectForKey:param.currentId];
         }
@@ -502,18 +480,18 @@
     return success;
 }
 
-- (BOOL)insertBefore:(NSString*)currrentID node:(WMZTreeParam*)param{
+- (BOOL)insertBefore:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param{
     if (!currrentID) {
         NSLog(@"节点id不能为空");return NO;
     }
-    if (!param||![param isKindOfClass:[WMZTreeParam class]]) {
+    if (!param||![param isKindOfClass:[NSObject<WMZTreeProcotol> class]]) {
         NSLog(@"追加的节点错误");return NO;
     }
     if ([self.dic objectForKey:param.currentId]) {
         NSLog(@"要添加的节点已存在");return NO;
     }
     BOOL success = NO;
-    WMZTreeParam *node = self.dic[currrentID];
+    NSObject<WMZTreeProcotol> *node = self.dic[currrentID];
     param.depath = node.depath;
     [self.dic setObject:param forKey:param.currentId];
     NSInteger index = [self.data indexOfObject:node];
@@ -521,7 +499,7 @@
         NSInteger sonIndex= [self.tree.children indexOfObject:node];
         [self.tree.children insertObject:param atIndex:sonIndex];
     }else{
-        WMZTreeParam *parentNode = self.dic[node.parentId];
+        NSObject<WMZTreeProcotol> *parentNode = self.dic[node.parentId];
         NSInteger sonIndex= [parentNode.children indexOfObject:node];
         [parentNode.children insertObject:param atIndex:sonIndex];
     }
@@ -538,18 +516,18 @@
     return success;
 }
 
-- (BOOL)insertAfter:(NSString*)currrentID node:(WMZTreeParam*)param{
+- (BOOL)insertAfter:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param{
     if (!currrentID) {
         NSLog(@"节点id不能为空");return NO;
     }
-    if (!param||![param isKindOfClass:[WMZTreeParam class]]) {
+    if (!param||![param isKindOfClass:[NSObject<WMZTreeProcotol> class]]) {
         NSLog(@"追加的节点错误");return NO;
     }
     if ([self.dic objectForKey:param.currentId]) {
         NSLog(@"要添加的节点已存在");return NO;
     }
    BOOL success = NO;
-   WMZTreeParam *node = self.dic[currrentID];
+   NSObject<WMZTreeProcotol> *node = self.dic[currrentID];
    param.depath = node.depath;
    [self.dic setObject:param forKey:param.currentId];
    NSArray *parentExpandArr =  [self getSonData:node type:TreeDataInsert];
@@ -557,7 +535,7 @@
    if (!node.parentId) {
        if(param) [self.tree.children addObject:param];
    }else{
-       WMZTreeParam *parentNode = self.dic[node.parentId];
+       NSObject<WMZTreeProcotol> *parentNode = self.dic[node.parentId];
        if(param) [parentNode.children addObject:param];
    }
 
@@ -573,8 +551,8 @@
    return success;
 }
 
-- (WMZTreeParam*)getParentId:(NSString*)currrentID{
-    WMZTreeParam *node = self.dic[currrentID];
+- (NSObject<WMZTreeProcotol>*)getParentId:(NSString*)currrentID{
+    NSObject<WMZTreeProcotol> *node = self.dic[currrentID];
     return self.dic[node.parentId];
 }
 

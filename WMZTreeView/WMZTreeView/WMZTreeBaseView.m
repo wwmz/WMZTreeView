@@ -10,9 +10,11 @@
 
 @interface WMZTreeBaseView()
 /// 已展开的树形数组
-@property(nonatomic, strong, readwrite) NSMutableArray *data;
+@property(nonatomic, strong, readwrite) NSMutableArray <NSObject<WMZTreeProcotol>*>*data;
 /// 全部字典
-@property(nonatomic, strong, readwrite) NSMutableDictionary *dic;
+@property(nonatomic, strong, readwrite) NSMutableDictionary <NSString*,NSObject<WMZTreeProcotol>*>*dic;
+/// 储存的model字典
+@property(nonatomic, strong, readwrite) NSMutableDictionary <NSNumber*,NSObject<WMZTreeProcotol> *>*tmpDic;
 /// 数据为空的占位显示图
 @property(nonatomic, strong, readwrite) UIView *emptyView;
 
@@ -31,14 +33,14 @@
     if (dic[WMZTreeName]) la.text = dic[WMZTreeName];
 }
 
-- (WMZTreeParam*)dictionaryToParam:(NSDictionary*)dic{
-    WMZTreeParam *param = TreeParam();
-    if (dic[WMZTreeName]) param.nameSet(dic[WMZTreeName]);
-    if (dic[WMZTreeCurrentId]) param.currentIdSet(dic[WMZTreeCurrentId]);
-    if (dic[WMZTreeParentId]) param.parentIdSet(dic[WMZTreeParentId]);
-    if (dic[WMZTreeExpand]) param.isExpandSet([dic[WMZTreeExpand] boolValue]);
-    if (dic[WMZTreeCanSelect]) param.canSelectSet([dic[WMZTreeCanSelect] boolValue]);
-    if (dic[WMZTreeExistData]) param.dataSet(dic[WMZTreeExistData]);
+- (NSObject<WMZTreeProcotol>*)dictionaryToParam:(NSDictionary*)dic{
+    WMZTreeParam *param = WMZTreeParam.new;
+    if (dic[WMZTreeName]) param.name = dic[WMZTreeName];
+    if (dic[WMZTreeCurrentId]) param.currentId = dic[WMZTreeCurrentId];
+    if (dic[WMZTreeParentId]) param.parentId = dic[WMZTreeParentId];
+    if (dic[WMZTreeExpand]) param.isExpand = [dic[WMZTreeExpand] boolValue];
+    if (dic[WMZTreeCanSelect]) param.canSelect = [dic[WMZTreeCanSelect] boolValue];
+    if (dic[WMZTreeExistData]) param.data = dic[WMZTreeExistData];
     if (dic[WMZTreeChildren]) param.children = [NSMutableArray arrayWithArray:dic[WMZTreeChildren]];
     if (param.currentId) {
         [self.dic setObject:param forKey:param.currentId];
@@ -48,20 +50,20 @@
 }
 
 /// 寻找所有子节点
-- (NSMutableArray*)getSonData:(WMZTreeParam*)node type:(TreeDataType)type{
+- (NSMutableArray*)getSonData:(NSObject<WMZTreeProcotol>*)node type:(TreeDataType)type{
     NSMutableArray *sonData = [NSMutableArray new];
     if (!node) return sonData;
     NSMutableArray *stack = [NSMutableArray new];
     [stack addObject:node];
-    WMZTreeParam *tmpNode = [WMZTreeParam new];
+    NSObject<WMZTreeProcotol> *tmpNode = [NSObject<WMZTreeProcotol> new];
     while (stack.count) {
-           WMZTreeParam *son = nil;
+           NSObject<WMZTreeProcotol> *son = nil;
            tmpNode = stack.lastObject;
-           WMZTreeParam *parentNode = self.dic[tmpNode.parentId];
+           NSObject<WMZTreeProcotol> *parentNode = self.dic[tmpNode.parentId];
            [stack removeLastObject];
-           
-           if (!tmpNode.depath&&tmpNode!=node) {
-               tmpNode.depath = parentNode.depath+1;
+           if (!tmpNode.depath &&
+               tmpNode!=node) {
+               tmpNode.depath = parentNode.depath + 1;
            }
            if (type == TreeDataAllWithSelf) {
                if (parentNode.isExpand) {
@@ -132,21 +134,22 @@
        return sonData;
 }
 
-
 /// 寻找该节点的所有父节点
-- (NSArray*)searchAllParentNode:(WMZTreeParam *)param{
+- (NSArray*)searchAllParentNode:(NSObject<WMZTreeProcotol> *)param{
     NSMutableArray *arr = [NSMutableArray new];
     NSMutableArray *loop= [NSMutableArray new];
-    if (param.parentId && self.dic[param.parentId])
+    if (param.parentId &&
+        self.dic[param.parentId])
         [loop addObject:self.dic[param.parentId]];
     
     while (loop.count) {
-        WMZTreeParam *tmp = loop.lastObject;
+        NSObject<WMZTreeProcotol> *tmp = loop.lastObject;
         if (param.isSelected) {
            tmp.halfSelect = NO;
            tmp.isSelected = YES;
-           for (WMZTreeParam *son in tmp.children) {
-                if (!son.isSelected&&son.canSelect) {
+           for (NSObject<WMZTreeProcotol> *son in tmp.children) {
+                if (!son.isSelected&&
+                    son.canSelect) {
                     tmp.halfSelect = YES;
                     tmp.isSelected = NO;
                     break;
@@ -155,8 +158,10 @@
         }else{
             tmp.halfSelect = NO;
             tmp.isSelected = NO;
-            for (WMZTreeParam *son in tmp.children) {
-                if (son!=tmp&&son.isSelected&&son.canSelect) {
+            for (NSObject<WMZTreeProcotol> *son in tmp.children) {
+                if (son!=tmp&&
+                    son.isSelected&&
+                    son.canSelect) {
                     tmp.halfSelect = YES;
                     break;
                 }
@@ -164,7 +169,8 @@
         }
         [loop removeLastObject];
         if(tmp) [arr addObject:tmp];
-        if (tmp.parentId && self.dic[tmp.parentId]) {
+        if (tmp.parentId &&
+            self.dic[tmp.parentId]) {
             [loop addObject:self.dic[tmp.parentId]];
         }
     }
@@ -194,8 +200,8 @@
         _table = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStyleGrouped];
         _table.estimatedRowHeight = 100;
         if (@available(iOS 11.0, *)) {
-            _table.estimatedSectionFooterHeight = 0.01;
-            _table.estimatedSectionHeaderHeight = 0.01;
+            _table.estimatedSectionFooterHeight = 0;
+            _table.estimatedSectionHeaderHeight = 0;
             _table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 150000
@@ -204,25 +210,30 @@
          }
         #endif
         _table.backgroundColor = UIColor.clearColor;
-        _table.dragDelegate = self;
         _table.delegate = (id)self;
         _table.dataSource = (id)self;
     }
     return _table;
 }
 
-- (NSMutableArray *)data{
+- (NSMutableArray<NSObject<WMZTreeProcotol> *> *)data{
     if (!_data) {
         _data = [NSMutableArray new];
     }
     return _data;
 }
 
-- (NSMutableDictionary *)dic{
+- (NSMutableDictionary<NSString *,NSObject<WMZTreeProcotol> *> *)dic{
     if (!_dic) {
-        _dic = [NSMutableDictionary new];
+        _dic = NSMutableDictionary.new;
     }
     return _dic;
 }
 
+- (NSMutableDictionary<NSNumber *,NSObject<WMZTreeProcotol> *> *)tmpDic{
+    if (!_tmpDic) {
+        _tmpDic = NSMutableDictionary.new;
+    }
+    return _tmpDic;
+}
 @end

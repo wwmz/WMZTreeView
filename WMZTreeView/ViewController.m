@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "WMZTreeView.h"
 #import "WMZMyCell.h"
+#import "WMZCustomModel.h"
+
 @interface ViewController ()
 @property(nonatomic,strong)WMZTreeView *treeView;
 @end
@@ -27,6 +29,7 @@
         @(5):@"fiveDemo",
         @(6):@"sixDemo",
         @(7):@"sevenDemo",
+        @(8):@"eightDemo",
     };
     if (self.type) {
         [self performSelector:NSSelectorFromString(dic[@(self.type)]) withObject:nil afterDelay:0.01];
@@ -148,16 +151,18 @@
 //手风琴效果+指定层级可勾选(这里选取3层 指定第三层可选)
 - (void)fourDemo{
     NSArray *data = @[
-        TreeParam().currentIdSet(@"1").nameSet(@"第1_0级").canSelectSet(NO),
-        TreeParam().currentIdSet(@"2").nameSet(@"第1_1级").canSelectSet(NO),
-        TreeParam().currentIdSet(@"3").nameSet(@"第1_2级").canSelectSet(NO),
-        TreeParam().currentIdSet(@"11").nameSet(@"第2_11级").parentIdSet(@"1").canSelectSet(NO),
-        TreeParam().currentIdSet(@"22").nameSet(@"第2_22级").parentIdSet(@"2").canSelectSet(NO),
-        TreeParam().currentIdSet(@"33").nameSet(@"第2_22级").parentIdSet(@"3").canSelectSet(NO),
-        //第三层可选
-        TreeParam().currentIdSet(@"111").nameSet(@"第3_111级").parentIdSet(@"11"),
-        TreeParam().currentIdSet(@"222").nameSet(@"第3_222级").parentIdSet(@"22"),
-        TreeParam().currentIdSet(@"333").nameSet(@"第3_333级").parentIdSet(@"33"),
+        ///第一层
+        [WMZTreeParam initWithName:@"第1_0级" currentId:@"1" parentId:nil canSelect:NO],
+        [WMZTreeParam initWithName:@"第1_1级" currentId:@"2" parentId:nil canSelect:NO],
+        [WMZTreeParam initWithName:@"第1_2级" currentId:@"3" parentId:nil canSelect:NO],
+        ///第二层
+        [WMZTreeParam initWithName:@"第2_11级" currentId:@"11" parentId:@"1" canSelect:NO],
+        [WMZTreeParam initWithName:@"第2_22级" currentId:@"22" parentId:@"2" canSelect:NO],
+        [WMZTreeParam initWithName:@"第2_22级" currentId:@"33" parentId:@"3" canSelect:NO],
+        ///第三层可选
+        [WMZTreeParam initWithName:@"第3_111级" currentId:@"111" parentId:@"11"],
+        [WMZTreeParam initWithName:@"第3_222级" currentId:@"222" parentId:@"22"],
+        [WMZTreeParam initWithName:@"第3_333级" currentId:@"333" parentId:@"33"],
     ];
     WMZTreeViewParam *param =TreeViewParam()
 //    .wHideExpanIconSet(YES)
@@ -220,6 +225,16 @@
     [self.view addSubview:self.treeView];
 }
 
+///实现协议的数据
+-(void)eightDemo{
+    WMZTreeViewParam *param =TreeViewParam()
+    .wFrameSet(CGRectMake(0, 88, self.view.bounds.size.width, self.view.bounds.size.height-88))
+    .wShowCheckboxSet(YES)
+    .wDataSet([self protocolArr]);
+    self.treeView = [[WMZTreeView alloc]initWithParam:param];
+    [self.view addSubview:self.treeView];
+}
+
 //增删数据
 - (void)dealModel:(id)model path:(NSIndexPath*)path userInfo:(id)userInfo{
     if ([userInfo isEqualToString:@"add"]) {
@@ -229,13 +244,13 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"追加子节点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UITextField *idText = alertController.textFields[0];
             UITextField *nameText = alertController.textFields[1];
-            WMZTreeParam *node =  TreeParam().currentIdSet(idText.text).nameSet(nameText.text).parentIdSet(param.currentId);
+            WMZTreeParam *node = [WMZTreeParam initWithName:nameText.text currentId:idText.text parentId:param.currentId];
             [weakSelf.treeView append:param.currentId node:node];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"追加节点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UITextField *idText = alertController.textFields[0];
             UITextField *nameText = alertController.textFields[1];
-            WMZTreeParam *node =  TreeParam().currentIdSet(idText.text).nameSet(nameText.text).parentIdSet(param.parentId);
+            WMZTreeParam *node = [WMZTreeParam initWithName:nameText.text currentId:idText.text parentId:param.parentId];
             [weakSelf.treeView insertAfter:param.currentId node:node];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
@@ -254,14 +269,15 @@
     }
 }
 
-//随机多少级 每级多少条数据
+///随机多少级 每级多少条数据
 - (NSArray*)randomArr:(int)num level:(int)level{
     NSMutableArray *arr = [NSMutableArray new];
     NSArray *firstId = @[@"0",@"1",@"2"];
-    //第一级
+    ///第一级
     for (int i = 0; i<firstId.count; i++) {
         NSString *str = [NSString stringWithFormat:@"第1_%d级",i];
-        [arr addObject:TreeParam().currentIdSet(firstId[i]).nameSet(str)];
+        WMZTreeParam *firstModel = [WMZTreeParam initWithName:str currentId:firstId[i] parentId:nil];
+        [arr addObject:firstModel];
     }
     NSInteger index = 1;
     NSInteger fitstIndex = firstId.count;
@@ -276,7 +292,7 @@
                NSString *str = [NSString stringWithFormat:@"第%ld_%ld级",index,i];
                NSString *currentID = [NSString stringWithFormat:@"%ld",i];
                [secondId addObject:currentID];
-               WMZTreeParam *param = TreeParam().currentIdSet(currentID).parentIdSet(dataArr[y]).nameSet(str);
+               WMZTreeParam *param = [WMZTreeParam initWithName:str currentId:currentID parentId:dataArr[y]];
                [arr addObject:param];
         }
         fitstIndex = num*index;
@@ -287,22 +303,42 @@
 }
 
 
-
 //拖拽
 - (void)onBtnAction:(UIButton*)sender{
     sender.selected = ![sender isSelected];
-    if (sender.isSelected) {
-        [sender setTitle:@"关闭拖拽" forState:UIControlStateNormal];
-    }else{
-        [sender setTitle:@"开启拖拽" forState:UIControlStateNormal];
-    }
-    
-
+    [sender setTitle:sender.isSelected ? @"关闭拖拽" : @"开启拖拽" forState:UIControlStateNormal];
     self.treeView.param.wDraggableSet(sender.isSelected);
     [self.treeView updateEditing];
 }
 
-//json数据
+///实现协议的model
+- (NSArray<WMZCustomModel*>*)protocolArr{
+    NSMutableArray<WMZCustomModel*> *marr = NSMutableArray.new;
+    WMZCustomModel *model = WMZCustomModel.new;
+    model.name = @"model1";
+    model.currentId = @"1";
+    [marr addObject:model];
+    
+    model = WMZCustomModel.new;
+    model.name = @"model2";
+    model.currentId = @"2";
+    [marr addObject:model];
+    
+    model = WMZCustomModel.new;
+    model.name = @"model1_1";
+    model.currentId = @"1_1";
+    model.parentId = @"1";
+    [marr addObject:model];
+    
+    model = WMZCustomModel.new;
+    model.name = @"model2_2";
+    model.currentId = @"12_2";
+    model.parentId = @"2";
+    [marr addObject:model];
+    return [NSArray arrayWithArray:marr];
+}
+
+///json数据
 - (NSArray*)jsonData{
     return @[
         @{
@@ -324,21 +360,11 @@
                                                WMZTreeCurrentId:@"1_3_2",
                                                WMZTreeParentId:@"1_2_1",
                                            },
-                                          @{
-                                               WMZTreeName:@"1_3_3级",
-                                               WMZTreeCurrentId:@"1_3_3",
-                                               WMZTreeParentId:@"1_2_1",
-                                           },
                                    ]
                     },
                     @{
                         WMZTreeName:@"1_2_2级",
                         WMZTreeCurrentId:@"1_2_2",
-                        WMZTreeParentId:@"1",
-                    },
-                   @{
-                        WMZTreeName:@"1_2_3级",
-                        WMZTreeCurrentId:@"1_2_3",
                         WMZTreeParentId:@"1",
                     },
             ]
@@ -352,39 +378,8 @@
                         WMZTreeCurrentId:@"2_2_1",
                         WMZTreeParentId:@"2",
                     },
-                    @{
-                        WMZTreeName:@"2_2_2级",
-                        WMZTreeCurrentId:@"2_2_2",
-                        WMZTreeParentId:@"2",
-                    },
-                   @{
-                        WMZTreeName:@"2_2_3级",
-                        WMZTreeCurrentId:@"2_2_3",
-                        WMZTreeParentId:@"2",
-                    },
             ]
         },
-        @{
-            WMZTreeName:@"3级",
-            WMZTreeCurrentId:@"3",
-            WMZTreeChildren:@[
-                    @{
-                        WMZTreeName:@"3_2_1级",
-                        WMZTreeCurrentId:@"3_2_1",
-                        WMZTreeParentId:@"3",
-                    },
-                    @{
-                        WMZTreeName:@"3_2_2级",
-                        WMZTreeCurrentId:@"3_2_2",
-                        WMZTreeParentId:@"3",
-                    },
-                   @{
-                        WMZTreeName:@"3_2_3级",
-                        WMZTreeCurrentId:@"3_2_3",
-                        WMZTreeParentId:@"3",
-                    },
-            ]
-        }
     ];
 }
 

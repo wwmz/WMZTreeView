@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  /// @param currrentID 当前节点
  /// @param param 子节点数据
  /// @return BOOL 是否追加成功
-- (BOOL)append:(NSString*)currrentID node:(WMZTreeParam*)param;
+- (BOOL)append:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param;
 
 /// 删除节点
 /// @param currrentID 当前节点
@@ -40,13 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param currrentID 当前节点
 /// @param param 子节点数据
 /// @return BOOL 是否追加成功
-- (BOOL)insertBefore:(NSString*)currrentID node:(WMZTreeParam*)param;
+- (BOOL)insertBefore:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param;
 
 /// 为 Tree 的一个节点的后面增加一个节点
 /// @param currrentID 当前节点
 /// @param param 子节点数据
 /// @return BOOL 是否追加成功
-- (BOOL)insertAfter:(NSString*)currrentID node:(WMZTreeParam*)param;
+- (BOOL)insertAfter:(NSString*)currrentID node:(NSObject<WMZTreeProcotol>*)param;
 
 /// 更新编辑状态
 - (void)updateEditing;
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)notSelectAll;
 
 /// 获取父节点
-- (WMZTreeParam*)getParentId:(NSString*)currrentID;
+- (NSObject<WMZTreeProcotol>*)getParentId:(NSString*)currrentID;
 
 /// 更新数据
 - (void)update;

@@ -55,17 +55,16 @@
     self.la.textColor = self.parentModel.wNodeTextColor;
     self.la.font = [UIFont systemFontOfSize:self.parentModel.wNodeTextFont];
     [self.contentView addSubview:self.la];
-
 }
 
-- (void)setModel:(WMZTreeParam *)model{
+- (void)setModel:(NSObject<WMZTreeProcotol> *)model{
     _model = model;
     self.la.text = model.name;
     self.check.selected = model.isSelected;
-    self.icon.hidden =  !model.children.count?YES:(self.parentModel.wHideExpanIcon);
-    
+    self.icon.hidden =  !model.children.count ? YES:(self.parentModel.wHideExpanIcon);
     if (self.parentModel.wHighlightCurrent&&model.canSelect&&self.parentModel.wShowCheckbox) {
-        if (self.model.isSelected||self.model.halfSelect) {
+        if (self.model.isSelected||
+            self.model.halfSelect) {
             self.la.textColor = self.parentModel.wHighlightCurrent;
         }else{
             self.la.textColor = self.parentModel.wNodeTextColor;
@@ -80,12 +79,9 @@
     }else{
         self.check.hidden = YES;
     }
-    
     if (!self.icon.hidden) {
         self.icon.selected = model.isExpand;
     }
-    
-    
     if (self.model.halfSelect) {
         [self.check setImage:[self bundleImage:self.parentModel.wHalfSelectCheckIcon] forState:UIControlStateNormal];
         [self.check setImage:[self bundleImage:self.parentModel.wSelectCheckIcon] forState:UIControlStateSelected];
@@ -93,7 +89,6 @@
         [self.check setImage:[self bundleImage:self.parentModel.wCheckIcon] forState:UIControlStateNormal];
         [self.check setImage:[self bundleImage:self.parentModel.wSelectCheckIcon] forState:UIControlStateSelected];
     }
-
 }
 
 - (void)checkAction:(UIButton*)btn{
@@ -118,11 +113,8 @@
 }
 
 - (UIImage*)bundleImage:(NSString*)name{
-    
-    
     NSBundle *bundle =  [NSBundle bundleWithPath:[[NSBundle bundleForClass:[WMZTreeCustomCell class]] pathForResource:@"WMZTreeView" ofType:@"bundle"]];
     NSString *path = [bundle pathForResource:name ofType:@"png"];
-    
     if (!path) {
         return [UIImage imageNamed:name];
     }else{

@@ -24,6 +24,7 @@
 		F315C0B02361791B001E1584 /* WMZTreeBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A52361791B001E1584 /* WMZTreeBaseView.m */; };
 		F315C0B12361791B001E1584 /* DemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0A92361791B001E1584 /* DemoVC.m */; };
 		F315C0B22361791B001E1584 /* WMZMyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F315C0AA2361791B001E1584 /* WMZMyCell.m */; };
+		F35B1D7728F68E81005978FC /* WMZCustomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F35B1D7628F68E81005978FC /* WMZCustomModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,9 @@
 		F315C0A82361791B001E1584 /* DemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoVC.h; sourceTree = "<group>"; };
 		F315C0A92361791B001E1584 /* DemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoVC.m; sourceTree = "<group>"; };
 		F315C0AA2361791B001E1584 /* WMZMyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMZMyCell.m; sourceTree = "<group>"; };
+		F35B1D7428F64FA8005978FC /* WMZTreeProcotol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMZTreeProcotol.h; sourceTree = "<group>"; };
+		F35B1D7528F68E81005978FC /* WMZCustomModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMZCustomModel.h; sourceTree = "<group>"; };
+		F35B1D7628F68E81005978FC /* WMZCustomModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMZCustomModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,8 @@
 				F315C073236178C1001E1584 /* LaunchScreen.storyboard */,
 				F315C076236178C1001E1584 /* Info.plist */,
 				F315C077236178C1001E1584 /* main.m */,
+				F35B1D7528F68E81005978FC /* WMZCustomModel.h */,
+				F35B1D7628F68E81005978FC /* WMZCustomModel.m */,
 			);
 			path = WMZTreeView;
 			sourceTree = "<group>";
@@ -180,6 +186,7 @@
 				F315C0A52361791B001E1584 /* WMZTreeBaseView.m */,
 				F315C0A62361791B001E1584 /* WMZTreeViewParam.h */,
 				F315C0A12361791B001E1584 /* WMZTreeViewParam.m */,
+				F35B1D7428F64FA8005978FC /* WMZTreeProcotol.h */,
 				F315C09D2361791B001E1584 /* WMZTreeView.bundle */,
 			);
 			path = WMZTreeView;
@@ -321,6 +328,7 @@
 				F315C0B02361791B001E1584 /* WMZTreeBaseView.m in Sources */,
 				F315C0B12361791B001E1584 /* DemoVC.m in Sources */,
 				F315C06D236178C0001E1584 /* ViewController.m in Sources */,
+				F35B1D7728F68E81005978FC /* WMZCustomModel.m in Sources */,
 				F315C067236178C0001E1584 /* AppDelegate.m in Sources */,
 				F315C0AD2361791B001E1584 /* WMZTreeViewParam.m in Sources */,
 				F315C078236178C1001E1584 /* main.m in Sources */,

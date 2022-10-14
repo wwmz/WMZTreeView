@@ -107,7 +107,7 @@ TreeViewParam()
 .wDefaultExpandedKeysSet(@[@"5",@"10",@"12"])
 
 ```
-### 开启拖拽( ️目前只支持没有子节点的节点拖拽,避免嵌套数据的bug, 如果有什么方便的办法可以支持多个连续的cell一起拖拽的告知下,不胜感激)
+### 开启拖拽
 ![treeDraggable.gif](https://upload-images.jianshu.io/upload_images/9163368-5c6a589140e7078a.gif?imageMogr2/auto-orient/strip)
 
 ```
@@ -116,60 +116,17 @@ TreeViewParam()
 .wDraggableSet(YES)
 ```
 
-## 配置参数和方法
-
-| 可配置参数               | 类型      | 作用                                                    |
-|------------------------|-----------|--------------------------------------------------------|
-| wData                | NSArray      | 展示数据 必传                |
-| wFrame                | CGRect      | frame  必传                              |
-| wEmptyData      | NSDictionary      | 内容为空的时候展示的数据 default nil  (image为图片 name为文字)                                    |
-| wHighlightCurrent             | UIColor      | 高亮当前选中节点颜色，default nil    |
-| wNodeTextFont            | CGFloat      | 节点的字体大小 default 15.0f |
-| wNodeTextColor                | UIColor      | 节点的字体颜色 default 333333                |
-| wDefaultExpandAll                | BOOL      | 是否默认展开所有节点  default NO                                |
-| wCheckStrictly      | BOOL      | 在显示复选框的情况下，是否严格的遵循父子互相关联的做法，defualt为 YES                                   |
-| wHideExpanIcon             | BOOL      | 隐藏展开图标，defualt为 NO     |
-| wShowCheckbox            | BOOL      | 节点是否可被选择 default NO |
-| wAccordion                | BOOL      | 是否每次只打开一个同级树节点展开 手风琴效果 default NO             |
-| wDraggable                | BOOL      | 是否允许拖动cell，默认为NO                                |
-| wDefaultExpandedKeys      | NSArray      | 默认展开的节点的 key 的数组 default nil                                    |
-| wIndent             | NSInteger      | 相邻级节点间的水平缩进距离  默认2    |
-| wExpandIcon            | NSString      | 自定义树节点的图标 |
-| wSelectExpandIcon      | NSString      | 自定义树节点展开的图标                                  |
-| wCheckIcon             | NSString      | 自定义树节点未勾选的图标     |
-| wSelectCheckIcon            | NSString      | 自定义树节点勾选的图标|
-| wHalfSelectCheckIcon      | NSString      | 自定义树节点半选中的图标 (没有全选)                                 |
-
-| 可监听block事件                  | 作用                                                    |
-|------------------------|--------------------------------------------------------|
-| wEventTreeCell                     | 自定义节点cell                |
-| wEventCellUserEnabled                     | 自定义cell其他交互                              |
-| wEventCellHeight         | 自定义cell高度                                  |
-| wEventNodeClick                  | 节点被点击时的回调                |
-| wEventNodeDraggable                 | 节点拖拽完成回调                               |
-| wEventCheckChange        | 节点选中状态发生变化时的回调                                 |
-
-| 实例方法                     | 作用                                                    |
-|------------------------|--------------------------------------------------------|
-| initWithParam                    | 初始化               |
-| updateKeyChildren               | 更新或者设置子节点数组                               |
-| getCheckedNodesWithHalfSelect          | 获取当前选中的节点数组                                   |
-| append                    | 为 Tree 中的一个节点追加一个子节点               |
-| remove                 | 删除节点                  |
-| insertBefore           | 为 Tree 的一个节点的前面增加一个节点                                   |
-| insertAfter           | 为 Tree 的一个节点的后面增加一个节点                                   |
-| updateEditing           | 更新编辑状态                                  |
-
 # **模型层**  
-1.WMZTreeParam
+1 任意模型实现WMZTreeProcotol协议
 ```
-TreeParam()
-.cueerntIdSet(@"1")
-.parentIdSet(@"2")
-.nameSet(@"第一级")
-.canSelectSet(YES)
-.isExpandSet(YES)
-.dataSet(@"")
+参考WMZCustomModel
+```
+1.使用或继承WMZTreeParam （已经实现了WMZTreeProcotol协议）
+```
+WMZTreeParam *tree = WMZTreeParam.new;
+tree.cueerntId =  @"1";
+tree.parentId =  @"2";
+tree.name =  @"第一级";
 ```
 
 2.NSDictionary
