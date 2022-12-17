@@ -51,6 +51,7 @@
 - (void)setUp{
     if (!self.param.wData||
         ![self.param.wData isKindOfClass:[NSArray class]]) return;
+    NSArray *tmpArr = [NSArray arrayWithArray:self.param.wData];
     BOOL JSON = NO;
     for (id model in self.param.wData) {
         if ([model isKindOfClass:[NSDictionary class]]) {
@@ -61,13 +62,13 @@
     self.tree = WMZTreeParam.new;
     if (JSON) {
         @autoreleasepool {
-            [self changeJSONtToTreeModel:self.param.wData type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent];
+            [self changeJSONtToTreeModel:tmpArr type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent];
         }
     }else{
         @autoreleasepool {
-            [self dealTreeData:self.param.wData];
+            [self dealTreeData:tmpArr];
         }
-        [self.data addObjectsFromArray:[self getSonData:self.tree type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent ]];
+        [self.data addObjectsFromArray:[self getSonData:self.tree type:self.param.wDefaultExpandAll?TreeDataAll: TreeDataExpandOrNotParent]];
     }
     if (!self.data.count) {
         [self.table removeFromSuperview];
@@ -100,12 +101,15 @@
     
     [items enumerateObjectsUsingBlock:^(NSObject<WMZTreeProcotol>*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (!obj.parentId) {
-            if (obj && [obj conformsToProtocol:@protocol(WMZTreeProcotol)]) [self.tree.children addObject:obj];
+            if (obj &&
+                [obj conformsToProtocol:@protocol(WMZTreeProcotol)] &&
+                [self.tree.children indexOfObject:obj] == NSNotFound)
+                [self.tree.children addObject:obj];
         }else{
             NSObject<WMZTreeProcotol> *param = self.dic[obj.parentId];
             if (obj && [obj conformsToProtocol:@protocol(WMZTreeProcotol)]){
                 if(!param.children) param.children = NSMutableArray.new;
-                [param.children addObject:obj];
+                if([param.children indexOfObject:obj] == NSNotFound) [param.children addObject:obj];
             }
             if (param){
                 __block NSInteger canSelectCount = 0;
